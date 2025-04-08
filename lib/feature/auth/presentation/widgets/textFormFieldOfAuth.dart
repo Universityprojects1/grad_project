@@ -15,7 +15,7 @@ class CustomTextFieldOfAuth extends StatelessWidget {
     this.appearColor = false,
     this.isPadding = true,
     this.suffixIcon,
-    this.prefixIcon,
+    this.prefixIcon, required this.obscureText,
   }) : _focusNode = focusNode;
 
   final FocusNode? _focusNode;
@@ -28,12 +28,14 @@ class CustomTextFieldOfAuth extends StatelessWidget {
   final bool isPadding;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: isPadding ? 12.0 : 0),
       child: TextFormField(
+        obscureText: obscureText,
         onTap: onTap,
         controller: controller,
         focusNode: _focusNode,

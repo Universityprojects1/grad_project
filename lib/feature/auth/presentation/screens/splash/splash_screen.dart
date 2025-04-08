@@ -1,4 +1,5 @@
 import 'package:final_proj/config/routes/routes.dart';
+import 'package:final_proj/core/cache/storage_token.dart';
 import 'package:final_proj/core/utils/app_images.dart';
 import 'package:final_proj/core/utils/app_string.dart';
 import 'package:final_proj/core/utils/component/logo.dart';
@@ -15,12 +16,19 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  StorageToken storageToken = StorageToken();
+
   @override
   void initState() {
     Future.delayed(
       const Duration(seconds: 2),
-      () {
-        GoRouter.of(context).push(AppRoute.signInScreen);
+      () async {
+        String? token = await storageToken.getToken();
+        if (token == null || token == "") {
+          GoRouter.of(context).pushReplacement(AppRoute.signInScreen);
+        } else {
+          GoRouter.of(context).pushReplacement(AppRoute.home);
+        }
       },
     );
     super.initState();
