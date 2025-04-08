@@ -1,0 +1,56 @@
+import 'package:final_proj/config/routes/routes.dart';
+import 'package:final_proj/core/utils/app_images.dart';
+import 'package:final_proj/core/utils/app_string.dart';
+import 'package:final_proj/core/utils/fonts.dart';
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        GoRouter.of(context).push(AppRoute.signInScreen);
+      },
+    );
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(Assets.assetsBackground),
+                  fit: BoxFit.cover)),
+          child: Column(
+            children: [
+              const Gap(90),
+              Text(
+                AppString.phyto,
+                style: AppFonts.textBold20(context).copyWith(fontSize: 26),
+              ),
+              const Gap(30),
+              Text(
+                textAlign: TextAlign.center,
+                AppString.txtOfSplash,
+                style: AppFonts.textBold20(context).copyWith(fontSize: 30),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
