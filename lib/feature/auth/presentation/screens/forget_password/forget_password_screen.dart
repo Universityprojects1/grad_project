@@ -21,6 +21,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           children: [
             const Gap(30),
             CustomTextFieldOfAuth(
+              obscureText: false,
               title: AppString.email,
               controller: TextEditingController(),
               readOnly: false,
