@@ -1,6 +1,7 @@
 import 'package:final_proj/config/routes/routes.dart';
 import 'package:final_proj/core/utils/app_images.dart';
 import 'package:final_proj/core/utils/app_string.dart';
+import 'package:final_proj/core/utils/component/logo.dart';
 import 'package:final_proj/core/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -37,15 +38,17 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             children: [
               const Gap(90),
+              const Logo(),
+              const Gap(30),
               Text(
                 AppString.phyto,
-                style: AppFonts.textBold20(context).copyWith(fontSize: 26),
+                style: AppFonts.textBold20(context).copyWith(fontSize: 30),
               ),
               const Gap(30),
               Text(
                 textAlign: TextAlign.center,
                 AppString.txtOfSplash,
-                style: AppFonts.textBold20(context).copyWith(fontSize: 30),
+                style: AppFonts.textSemiBold20(context),
               ),
             ],
           ),

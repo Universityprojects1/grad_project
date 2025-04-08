@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../config/routes/routes.dart';
 import '../../../../../core/utils/app_color.dart';
 import '../../../../../core/utils/component/custom_button.dart';
+import '../../../../../core/utils/component/logo.dart';
 import '../../../../../core/utils/fonts.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -22,6 +23,8 @@ class SignUpScreen extends StatelessWidget {
         child: Column(
           children: [
             const Gap(30),
+            const Logo(),
+            const Gap(15),
             CustomTextFieldOfAuth(
               title: AppString.name,
               controller: TextEditingController(),

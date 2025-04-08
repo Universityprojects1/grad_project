@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../core/utils/component/logo.dart';
 import '../../widgets/custom_app-bar_of-auth.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -38,6 +39,8 @@ class _SignInScreenState extends State<SignInScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Column(
             children: [
+              const Gap(30),
+              const Logo(),
               const Gap(30),
               CustomTextFieldOfAuth(
                 title: AppString.email,
