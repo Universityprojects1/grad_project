@@ -3,14 +3,17 @@ import 'package:final_proj/feature/auth/presentation/screens/sign_in/sign_in_scr
 import 'package:final_proj/feature/auth/presentation/screens/sign_up/sign_up_screen.dart';
 import 'package:final_proj/feature/auth/presentation/screens/splash/splash_screen.dart';
 import 'package:final_proj/feature/home_feature/home.dart';
+import 'package:final_proj/feature/home_layout/home_layout_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRoute {
   static const home = '/home';
-  static const splashScreen = '/';
+  static const splashScreen = '/splash';
   static const signInScreen = '/signInScreen';
   static const signUpScreen = '/signUpScreen';
   static const forgetPasswordScreen = '/forgetPasswordScreen';
+  static const homeLayout = '/';
+
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -28,9 +31,14 @@ class AppRoute {
       GoRoute(
         path: signUpScreen,
         builder: (context, state) => const SignUpScreen(),
-      ),     GoRoute(
+      ),
+      GoRoute(
         path: forgetPasswordScreen,
         builder: (context, state) => const ForgetPasswordScreen(),
+      ),
+      GoRoute(
+        path: homeLayout,
+        builder: (context, state) => const HomeLayoutScreen(),
       ),
     ],
   );
