@@ -3,7 +3,9 @@ import 'package:final_proj/feature/auth/presentation/screens/sign_in/sign_in_scr
 import 'package:final_proj/feature/auth/presentation/screens/sign_up/sign_up_screen.dart';
 import 'package:final_proj/feature/auth/presentation/screens/splash/splash_screen.dart';
 import 'package:final_proj/feature/home_feature/home.dart';
-import 'package:final_proj/feature/home_layout/home_layout_screen.dart';
+import 'package:final_proj/feature/home_layout/presentation/cubit/cubit/home_layout_cubit.dart';
+import 'package:final_proj/feature/home_layout/presentation/screen/home_layout_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRoute {
@@ -38,7 +40,10 @@ class AppRoute {
       ),
       GoRoute(
         path: homeLayout,
-        builder: (context, state) => const HomeLayoutScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => HomeLayoutCubit(),
+          child: HomeLayoutScreen(),
+        ),
       ),
     ],
   );
