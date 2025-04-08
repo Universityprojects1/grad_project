@@ -35,6 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       color: Colors.white, fontWeight: FontWeight.bold)),
             ),
           );
+          GoRouter.of(context).pushReplacement(AppRoute.signInScreen);
         } else if (state is AuthSignUpFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

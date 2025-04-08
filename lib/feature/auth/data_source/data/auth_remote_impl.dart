@@ -5,9 +5,12 @@ import 'package:final_proj/feature/auth/data_source/data/auth_remote.dart';
 import 'package:final_proj/feature/auth/data_source/model/auth_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../../core/cache/storage_token.dart';
+
 class AuthRemoteImpl extends AuthRemote {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  StorageToken storageToken = StorageToken();
 
   @override
   Future<Either<String, String>> signUp(AuthModel authModel) async {
@@ -20,6 +23,7 @@ class AuthRemoteImpl extends AuthRemote {
           .collection(EndPoints.users)
           .doc(credential.user?.uid)
           .set(authModel.toJson());
+
       return const Right("User registered successfully");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -37,10 +41,11 @@ class AuthRemoteImpl extends AuthRemote {
   @override
   Future<Either<String, String>> signIn(AuthModel authModel) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final credential =  await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: authModel.email!,
         password: authModel.password!,
       );
+      await storageToken.setToken(credential.user?.uid ?? "");
       return const Right("User logged in successfully");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
