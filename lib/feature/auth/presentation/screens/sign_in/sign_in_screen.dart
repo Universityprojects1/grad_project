@@ -43,6 +43,7 @@ class _SignInScreenState extends State<SignInScreen> {
               const Logo(),
               const Gap(30),
               CustomTextFieldOfAuth(
+                focusNode: emailFocus,
                 title: AppString.email,
                 controller: TextEditingController(),
                 readOnly: false,
