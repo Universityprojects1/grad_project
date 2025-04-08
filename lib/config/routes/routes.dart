@@ -1,4 +1,5 @@
 import 'package:final_proj/feature/auth/presentation/screens/sign_in/sign_in_screen.dart';
+import 'package:final_proj/feature/auth/presentation/screens/sign_up/sign_up_screen.dart';
 import 'package:final_proj/feature/auth/presentation/screens/splash/splash_screen.dart';
 import 'package:final_proj/feature/home_feature/home.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +25,7 @@ class AppRoute {
       ),
       GoRoute(
         path: signUpScreen,
-        builder: (context, state) => const HomePage(),
+        builder: (context, state) => const SignUpScreen(),
       ),
     ],
   );

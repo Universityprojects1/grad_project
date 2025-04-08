@@ -1,3 +1,4 @@
+import 'package:final_proj/config/routes/routes.dart';
 import 'package:final_proj/core/utils/app_color.dart';
 import 'package:final_proj/core/utils/app_string.dart';
 import 'package:final_proj/core/utils/component/custom_button.dart';
@@ -5,6 +6,7 @@ import 'package:final_proj/core/utils/fonts.dart';
 import 'package:final_proj/feature/auth/presentation/widgets/textFormFieldOfAuth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../widgets/custom_app-bar_of-auth.dart';
 
@@ -35,7 +37,6 @@ class _SignInScreenState extends State<SignInScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               const Gap(30),
               CustomTextFieldOfAuth(
@@ -48,18 +49,31 @@ class _SignInScreenState extends State<SignInScreen> {
                 controller: TextEditingController(),
                 readOnly: false,
               ),
-              TextButton(
-                  onPressed: () {},
-                  child: const Text(AppString.forgotPassword)),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                    onPressed: () {},
+                    child: const Text(AppString.forgotPassword)),
+              ),
               const Gap(15),
               const CustomButton(
                   text: AppString.signIn, color: AppColor.primaryColor),
               const Gap(10),
-              Text(
-                AppString.txtOfPolicy,
-                style: AppFonts.textRegular14(context)
-                    .copyWith(fontWeight: FontWeight.bold),
-              )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(AppString.doNotHaveAccount),
+                  TextButton(
+                      onPressed: () {
+                        GoRouter.of(context).push(AppRoute.signUpScreen);
+                      },
+                      child: Text(
+                        AppString.signUp,
+                        style: AppFonts.textSemiBold16(context)
+                            .copyWith(color: AppColor.primaryColor),
+                      )),
+                ],
+              ),
             ],
           ),
         ),

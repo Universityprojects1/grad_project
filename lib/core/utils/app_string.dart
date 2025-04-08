@@ -17,4 +17,8 @@ abstract class AppString {
   static const String forgotPassword = "Forgot password?";
   static const String forgotPasswordWithoutQuestionMark = "Forgot password";
   static const String txtOfPolicy = "By continuing, you agree to our Terms of Service and Privacy Policy.";
+  static const String doNotHaveAccount = "Don't have an Account?";
+  static const String haveAccount = "Already have an Account?";
+  static const String name = "Name";
+  static const String phone = "Phone";
 }
