@@ -5,7 +5,7 @@ import 'package:final_proj/feature/auth/data_source/data/auth_remote.dart';
 import 'package:final_proj/feature/auth/data_source/model/auth_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class SignInRemoteImpl extends SignInRemote {
+class AuthRemoteImpl extends AuthRemote {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
