@@ -52,7 +52,9 @@ class _SignInScreenState extends State<SignInScreen> {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      GoRouter.of(context).push(AppRoute.forgetPasswordScreen);
+                    },
                     child: const Text(AppString.forgotPassword)),
               ),
               const Gap(15),
