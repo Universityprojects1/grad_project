@@ -1,4 +1,3 @@
-import 'package:final_proj/config/routes/routes.dart';
 import 'package:final_proj/feature/home_feature/presentation/manager/weather_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

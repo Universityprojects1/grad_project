@@ -4,7 +4,6 @@ import 'package:final_proj/core/utils/app_string.dart';
 import 'package:final_proj/core/utils/component/custom_button.dart';
 import 'package:final_proj/core/utils/fonts.dart';
 import 'package:final_proj/feature/home_feature/presentation/manager/weather_cubit.dart';
-import 'package:final_proj/feature/home_feature/presentation/screens/flutter_map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
