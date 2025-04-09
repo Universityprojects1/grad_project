@@ -3,13 +3,16 @@ import 'package:final_proj/feature/auth/presentation/screens/forget_password/for
 import 'package:final_proj/feature/auth/presentation/screens/sign_in/sign_in_screen.dart';
 import 'package:final_proj/feature/auth/presentation/screens/sign_up/sign_up_screen.dart';
 import 'package:final_proj/feature/auth/presentation/screens/splash/splash_screen.dart';
-import 'package:final_proj/feature/home_feature/home.dart';
+import 'package:final_proj/feature/home_feature/presentation/manager/weather_cubit.dart';
+import 'package:final_proj/feature/home_feature/presentation/screens/home.dart';
 
 import 'package:final_proj/feature/home_layout/presentation/cubit/cubit/home_layout_cubit.dart';
 import 'package:final_proj/feature/home_layout/presentation/screen/home_layout_screen.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../feature/home_feature/presentation/screens/flutter_map_screen.dart';
 
 class AppRoute {
   static const home = '/home';
@@ -18,6 +21,7 @@ class AppRoute {
   static const signUpScreen = '/signUpScreen';
   static const forgetPasswordScreen = '/forgetPasswordScreen';
   static const homeLayout = '/homeLayout';
+  static const flutterMapScreen = '/flutterMapScreen';
 
   static final router = GoRouter(
     routes: [
@@ -55,6 +59,13 @@ class AppRoute {
         builder: (context, state) => BlocProvider(
           create: (context) => HomeLayoutCubit(),
           child: const HomeLayoutScreen(),
+        ),
+      ),
+      GoRoute(
+        path: flutterMapScreen,
+        builder: (context, state) => BlocProvider(
+          create: (context) => WeatherCubit(),
+          child: const FlutterMapScreen(),
         ),
       ),
     ],

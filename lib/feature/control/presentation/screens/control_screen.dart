@@ -12,62 +12,60 @@ class ControlScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomButton(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DateAndTimeScreen(
-                          title: AppString.irrigation,
-                          customTimer:
-                              TimerManager().getTimer(AppString.irrigation)),
-                    ));
-              },
-              text: AppString.irrigation,
-              color: AppColor.primaryColor,
-              height: 70,
-            ),
-            const Gap(15),
-            CustomButton(
-              text: AppString.fertilizer,
-              color: AppColor.colorButton2,
-              height: 70,
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DateAndTimeScreen(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CustomButton(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DateAndTimeScreen(
                         title: AppString.irrigation,
                         customTimer:
-                            TimerManager().getTimer(AppString.fertilizer),
-                      ),
-                    ));
-              },
-            ),
-            const Gap(15),
-            CustomButton(
-              text: AppString.pesticide,
-              color: AppColor.colorButton3,
-              height: 70,
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DateAndTimeScreen(
-                          title: AppString.irrigation,
-                          customTimer:
-                              TimerManager().getTimer(AppString.pesticide)),
-                    ));
-              },
-            ),
-          ],
-        ),
+                            TimerManager().getTimer(AppString.irrigation)),
+                  ));
+            },
+            text: AppString.irrigation,
+            color: AppColor.primaryColor,
+            height: 70,
+          ),
+          const Gap(15),
+          CustomButton(
+            text: AppString.fertilizer,
+            color: AppColor.colorButton2,
+            height: 70,
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DateAndTimeScreen(
+                      title: AppString.irrigation,
+                      customTimer:
+                          TimerManager().getTimer(AppString.fertilizer),
+                    ),
+                  ));
+            },
+          ),
+          const Gap(15),
+          CustomButton(
+            text: AppString.pesticide,
+            color: AppColor.colorButton3,
+            height: 70,
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DateAndTimeScreen(
+                        title: AppString.irrigation,
+                        customTimer:
+                            TimerManager().getTimer(AppString.pesticide)),
+                  ));
+            },
+          ),
+        ],
       ),
     );
   }

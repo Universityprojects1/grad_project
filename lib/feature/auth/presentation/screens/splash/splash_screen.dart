@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Text(
                 textAlign: TextAlign.center,
                 AppString.txtOfSplash,
-                style: AppFonts.textSemiBold20(context),
+                style: AppFonts.textSemiBold20(context).copyWith(color: Colors.white),
               ),
             ],
           ),

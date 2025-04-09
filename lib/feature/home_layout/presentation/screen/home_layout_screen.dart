@@ -17,11 +17,12 @@ class HomeLayoutScreen extends StatefulWidget {
 }
 
 class _HomeLayoutScreenState extends State<HomeLayoutScreen> {
-  List<String> title =[
+  List<String> title = [
     AppString.home,
     AppString.detection,
     AppString.controls
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,15 +33,23 @@ class _HomeLayoutScreenState extends State<HomeLayoutScreen> {
         ),
         leading: const SizedBox(),
         centerTitle: true,
-        backgroundColor: AppColor.primaryColor,
+        backgroundColor: AppColor.colorButton2,
       ),
       body: BlocBuilder<HomeLayoutCubit, HomeLayoutState>(
         builder: (context, state) {
-          return state.getScreen();
+          return Container(
+            height: double.infinity,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(Assets.assetsBackgroundHome),
+                      fit: BoxFit.cover)),
+              child: state.getScreen());
         },
       ),
       bottomNavigationBar: FlashyTabBar(
         selectedIndex: context.read<HomeLayoutCubit>().currentIndex,
+        backgroundColor: AppColor.colorButton2,
         showElevation: true,
         onItemSelected: (index) {
           setState(() {
@@ -49,18 +58,28 @@ class _HomeLayoutScreenState extends State<HomeLayoutScreen> {
         },
         items: [
           FlashyTabBarItem(
-            activeColor: AppColor.primaryColor,
-            icon: SvgPicture.asset(Assets.assetsHome),
+            activeColor: AppColor.whiteColor,
+            inactiveColor: AppColor.whiteColor,
+            icon: SvgPicture.asset(
+              Assets.assetsHome,
+              color: AppColor.whiteColor,
+            ),
             title: const Text('Home'),
           ),
           FlashyTabBarItem(
-            activeColor: AppColor.primaryColor,
-            icon: SvgPicture.asset(Assets.assetsDetection),
+            activeColor: AppColor.whiteColor,
+            icon: SvgPicture.asset(
+              Assets.assetsDetection,
+              color: AppColor.whiteColor,
+            ),
             title: const Text('Detection'),
           ),
           FlashyTabBarItem(
-            activeColor: AppColor.primaryColor,
-            icon: SvgPicture.asset(Assets.assetsControl),
+            activeColor: AppColor.whiteColor,
+            icon: SvgPicture.asset(
+              Assets.assetsControl,
+              color: AppColor.whiteColor,
+            ),
             title: const Text('Control'),
           ),
         ],
