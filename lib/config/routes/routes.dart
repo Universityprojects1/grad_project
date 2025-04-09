@@ -3,7 +3,7 @@ import 'package:final_proj/feature/auth/presentation/screens/forget_password/for
 import 'package:final_proj/feature/auth/presentation/screens/sign_in/sign_in_screen.dart';
 import 'package:final_proj/feature/auth/presentation/screens/sign_up/sign_up_screen.dart';
 import 'package:final_proj/feature/auth/presentation/screens/splash/splash_screen.dart';
-import 'package:final_proj/feature/home_feature/home.dart';
+import 'package:final_proj/feature/home_feature/presentation/screens/home.dart';
 
 import 'package:final_proj/feature/home_layout/presentation/cubit/cubit/home_layout_cubit.dart';
 import 'package:final_proj/feature/home_layout/presentation/screen/home_layout_screen.dart';
