@@ -67,6 +67,7 @@ dependencies:
   cloud_firestore: ^5.6.6
   bottom_picker: ^2.11.2
   cart_stepper: ^4.3.0
+  location: ^5.0.3
 
 
 
