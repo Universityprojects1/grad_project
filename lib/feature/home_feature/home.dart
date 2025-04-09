@@ -13,13 +13,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   StorageToken storageToken = StorageToken();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-      ),
-      body:  Center(
+      body: Center(
         child: InkWell(
           onTap: () {
             storageToken.deleteToken();

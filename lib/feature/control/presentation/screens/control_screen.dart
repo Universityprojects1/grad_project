@@ -1,7 +1,6 @@
 import 'package:final_proj/core/utils/app_color.dart';
 import 'package:final_proj/core/utils/app_string.dart';
 import 'package:final_proj/core/utils/component/custom_button.dart';
-import 'package:final_proj/core/utils/fonts.dart';
 import 'package:final_proj/feature/control/presentation/screens/date_and_time_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -14,14 +13,6 @@ class ControlScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppString.controls,
-          style: AppFonts.textBold20(context).copyWith(color: Colors.white),
-        ),
-        centerTitle: true,
-        backgroundColor: AppColor.primaryColor,
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: Column(

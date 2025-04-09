@@ -32,4 +32,6 @@ abstract class AppString {
   static const String save = "Save";
   static const String numberOfHours = "Number of hours";
   static const String txtOfDateAndTime = "Choose Date and Time to";
+  static const String home = "Home";
+  static const String detection = "Detection";
 }

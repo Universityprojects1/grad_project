@@ -52,10 +52,7 @@ class _DateAndTimeScreenState extends State<DateAndTimeScreen> {
           AppString.dateAndTime,
           style: AppFonts.textBold20(context).copyWith(color: Colors.white),
         ),
-        leading: const Icon(
-          CupertinoIcons.back,
-          color: Colors.white,
-        ),
+        leading: const SizedBox(),
         centerTitle: true,
         backgroundColor: AppColor.primaryColor,
       ),
@@ -126,20 +123,20 @@ class _DateAndTimeScreenState extends State<DateAndTimeScreen> {
               ),
               Center(
                   child: Column(
-                children: [
-                  Text(
-                    AppString.startTime,
-                    style: AppFonts.textSemiBold16(context)
-                        .copyWith(color: AppColor.secondColor),
-                  ),
-                  _buildStepper(),
-                ],
-              )),
+                    children: [
+                      Text(
+                        AppString.startTime,
+                        style: AppFonts.textSemiBold16(context)
+                            .copyWith(color: AppColor.secondColor),
+                      ),
+                      _buildStepper(),
+                    ],
+                  )),
               const Gap(20),
               Center(
                 child: Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                  const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: Colors.red),
