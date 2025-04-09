@@ -21,4 +21,15 @@ abstract class AppString {
   static const String haveAccount = "Already have an Account?";
   static const String name = "Name";
   static const String phone = "Phone";
+  static const String irrigation = "Irrigation";
+  static const String fertilizer = "Fertilizer";
+  static const String pesticide = "Pesticide";
+  static const String controls = "Controls";
+  static const String dateAndTime = "Date and Time";
+  static const String date = "Date";
+  static const String startTime = "Start Time";
+  static const String endTime = "End Time";
+  static const String save = "Save";
+  static const String numberOfHours = "Number of hours";
+  static const String txtOfDateAndTime = "Choose Date and Time to";
 }

@@ -13,11 +13,11 @@ import 'package:go_router/go_router.dart';
 
 class AppRoute {
   static const home = '/home';
-  static const splashScreen = '/splash';
+  static const splashScreen = '/';
   static const signInScreen = '/signInScreen';
   static const signUpScreen = '/signUpScreen';
   static const forgetPasswordScreen = '/forgetPasswordScreen';
-  static const homeLayout = '/';
+  static const homeLayout = '/homeLayout';
 
   static final router = GoRouter(
     routes: [
@@ -31,34 +31,30 @@ class AppRoute {
       ),
       GoRoute(
         path: signInScreen,
-        builder: (context, state) =>
-            BlocProvider(
-              create: (context) => AuthCubit(),
-              child: const SignInScreen(),
-            ),
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: const SignInScreen(),
+        ),
       ),
       GoRoute(
         path: signUpScreen,
-
-        builder: (context, state) =>
-            BlocProvider(
-              create: (context) => AuthCubit(),
-              child: const SignUpScreen(),
-            ),
-      ), GoRoute(
-
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: const SignUpScreen(),
+        ),
+      ),
+      GoRoute(
         path: forgetPasswordScreen,
-        builder: (context, state) =>
-            BlocProvider(
-              create: (context) => AuthCubit(),
-              child: const ForgetPasswordScreen(),
-            ),
+        builder: (context, state) => BlocProvider(
+          create: (context) => AuthCubit(),
+          child: const ForgetPasswordScreen(),
+        ),
       ),
       GoRoute(
         path: homeLayout,
         builder: (context, state) => BlocProvider(
           create: (context) => HomeLayoutCubit(),
-          child: HomeLayoutScreen(),
+          child: const HomeLayoutScreen(),
         ),
       ),
     ],

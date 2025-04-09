@@ -17,9 +17,6 @@ class _HomeLayoutScreenState extends State<HomeLayoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Layout'),
-      ),
       body: BlocBuilder<HomeLayoutCubit, HomeLayoutState>(
         builder: (context, state) {
           return state.getScreen();
