@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (token == null || token == "") {
           GoRouter.of(context).pushReplacement(AppRoute.signInScreen);
         } else {
-          GoRouter.of(context).pushReplacement(AppRoute.home);
+          GoRouter.of(context).pushReplacement(AppRoute.homeLayout);
         }
       },
     );
