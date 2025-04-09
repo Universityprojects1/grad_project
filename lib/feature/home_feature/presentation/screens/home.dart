@@ -1,11 +1,14 @@
+import 'package:final_proj/config/routes/routes.dart';
 import 'package:final_proj/core/utils/app_color.dart';
 import 'package:final_proj/core/utils/app_string.dart';
 import 'package:final_proj/core/utils/component/custom_button.dart';
 import 'package:final_proj/core/utils/fonts.dart';
 import 'package:final_proj/feature/home_feature/presentation/manager/weather_cubit.dart';
+import 'package:final_proj/feature/home_feature/presentation/screens/flutter_map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/cache/storage_token.dart';
 
@@ -65,9 +68,20 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.bold),
               ),
               const Gap(30),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: CustomButton(
+                    onTap: () async {
+                      var result = await GoRouter.of(context)
+                          .push(AppRoute.flutterMapScreen);
+                      if (result != null &&
+                          result is List &&
+                          result.length == 2) {
+                        final lat = result[0] as double;
+                        final lon = result[1] as double;
+                        context.read<WeatherCubit>().getWeather(lat, lon);
+                      }
+                    },
                     text: AppString.selectLocation,
                     color: AppColor.colorButton2),
               )
@@ -94,7 +108,7 @@ class _HomePageState extends State<HomePage> {
             ],
           );
         }
-        return const SizedBox.shrink();
+        return const SizedBox();
       },
     );
   }

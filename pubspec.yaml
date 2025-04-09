@@ -68,6 +68,8 @@ dependencies:
   bottom_picker: ^2.11.2
   cart_stepper: ^4.3.0
   location: ^5.0.3
+  flutter_map: 7.0.2
+  latlong2: 0.9.1
 
 
 
