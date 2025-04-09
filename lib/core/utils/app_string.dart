@@ -34,4 +34,5 @@ abstract class AppString {
   static const String txtOfDateAndTime = "Choose Date and Time to";
   static const String home = "Home";
   static const String detection = "Detection";
+  static const String selectLocation = "Select Location";
 }

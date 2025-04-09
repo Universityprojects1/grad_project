@@ -38,6 +38,8 @@ class _HomeLayoutScreenState extends State<HomeLayoutScreen> {
       body: BlocBuilder<HomeLayoutCubit, HomeLayoutState>(
         builder: (context, state) {
           return Container(
+            height: double.infinity,
+              width: double.infinity,
               decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(Assets.assetsBackgroundHome),

@@ -20,9 +20,13 @@ class WeatherCubit extends Cubit<WeatherState> {
   void updateLocation() async {
     await locationService.checkAndRequestLocationService();
     await locationService.checkAndRequestLocationPermission();
+    var loc = await locationService.location.getLocation();
+    lat = loc.latitude!;
+    lon = loc.longitude!;
+    getWeather(lat, lon);
   }
 
-  getWeather() async {
+  getWeather(double lat, double lon) async {
     emit(WeatherLoading());
     var res = await weatherRepo.getWeather(lat, lon);
     res.fold(

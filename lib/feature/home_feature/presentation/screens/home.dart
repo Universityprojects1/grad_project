@@ -1,6 +1,10 @@
 import 'package:final_proj/core/utils/app_color.dart';
+import 'package:final_proj/core/utils/app_string.dart';
+import 'package:final_proj/core/utils/component/custom_button.dart';
 import 'package:final_proj/core/utils/fonts.dart';
+import 'package:final_proj/feature/home_feature/presentation/manager/weather_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../core/cache/storage_token.dart';
@@ -17,47 +21,81 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Gap(30),
-        Text(
-          "Montreal",
-          style: AppFonts.textRegular16(context)
-              .copyWith(fontSize: 40, color: AppColor.whiteColor),
-        ),
-        Text(
-          "19*",
-          style: AppFonts.textRegular16(context)
-              .copyWith(fontSize: 70, color: AppColor.whiteColor),
-        ),
-        Text(
-          "Clear",
-          style: AppFonts.textRegular16(context).copyWith(
-              fontSize: 30,
-              color: AppColor.whiteColor,
-              fontWeight: FontWeight.bold),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              "Temp",
-              style: AppFonts.textRegular16(context).copyWith(
-                  fontSize: 24,
-                  color: AppColor.whiteColor,
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              "humidity",
-              style: AppFonts.textRegular16(context).copyWith(
-                  fontSize: 24,
-                  color: AppColor.whiteColor,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ],
+    return BlocBuilder<WeatherCubit, WeatherState>(
+      builder: (context, state) {
+        if (state is WeatherSuccess) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(
+                width: double.infinity,
+              ),
+              const Gap(30),
+              Text(
+                state.weatherResponse.name,
+                style: AppFonts.textRegular16(context).copyWith(
+                    fontSize: 40,
+                    color: AppColor.blackColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "${state.weatherResponse.main.tempMax.toString()}°C",
+                style: AppFonts.textRegular16(context)
+                    .copyWith(fontSize: 70, color: AppColor.blackColor),
+              ),
+              Text(
+                state.weatherResponse.weather[0].description,
+                style: AppFonts.textRegular16(context).copyWith(
+                    fontSize: 30,
+                    color: AppColor.whiteColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "Cloud Coverage: ${state.weatherResponse.clouds.all}%",
+                style: AppFonts.textRegular16(context).copyWith(
+                    fontSize: 24,
+                    color: AppColor.whiteColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "Humidity: ${state.weatherResponse.main.humidity}%",
+                style: AppFonts.textRegular16(context).copyWith(
+                    fontSize: 24,
+                    color: AppColor.whiteColor,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Gap(30),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: CustomButton(
+                    text: AppString.selectLocation,
+                    color: AppColor.colorButton2),
+              )
+            ],
+          );
+        } else if (state is WeatherFailure) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(state.error),
+            ],
+          );
+        } else if (state is WeatherLoading) {
+          return const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 30,
+                height: 30,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          );
+        }
+        return const SizedBox.shrink();
+      },
     );
   }
 }
