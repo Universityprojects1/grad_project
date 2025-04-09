@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../../../core/cache/storage_token.dart';
 
@@ -71,8 +72,10 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: CustomButton(
                     onTap: () async {
-                      var result = await GoRouter.of(context)
-                          .push(AppRoute.flutterMapScreen);
+                      var result = await GoRouter.of(context).push(
+                          AppRoute.flutterMapScreen,
+                          extra: LatLng(context.read<WeatherCubit>().lat,
+                              context.read<WeatherCubit>().lon));
                       if (result != null &&
                           result is List &&
                           result.length == 2) {

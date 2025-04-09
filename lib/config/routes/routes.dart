@@ -11,6 +11,7 @@ import 'package:final_proj/feature/home_layout/presentation/screen/home_layout_s
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../feature/home_feature/presentation/screens/flutter_map_screen.dart';
 
@@ -63,10 +64,13 @@ class AppRoute {
       ),
       GoRoute(
         path: flutterMapScreen,
-        builder: (context, state) => BlocProvider(
-          create: (context) => WeatherCubit(),
-          child: const FlutterMapScreen(),
-        ),
+        builder: (context, state) {
+          final latLng = state.extra as LatLng;
+          return BlocProvider(
+            create: (context) => WeatherCubit(),
+            child: FlutterMapScreen(latLng: latLng),
+          );
+        },
       ),
     ],
   );

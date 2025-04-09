@@ -6,15 +6,16 @@ import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
 class FlutterMapScreen extends StatelessWidget {
-  const FlutterMapScreen({super.key});
+  const FlutterMapScreen({super.key, required this.latLng});
+
+  final LatLng latLng;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FlutterMap(
           options: MapOptions(
-            initialCenter: LatLng(context.read<WeatherCubit>().lat,
-                context.read<WeatherCubit>().lon), // Center the map over London
+            initialCenter: LatLng(latLng.latitude, latLng.longitude),
             initialZoom: 9.2,
             onTap: (tapPosition, point) async {
               context.read<WeatherCubit>().lat = point.latitude;

@@ -10,7 +10,7 @@ final class HomeLayoutHomeState extends HomeLayoutState {
   @override
   Widget getScreen() {
     return BlocProvider(
-      create: (context) => WeatherCubit(),
+      create: (context) => WeatherCubit()..updateLocation(),
       child: const HomePage(),
     );
   }
