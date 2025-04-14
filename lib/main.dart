@@ -15,7 +15,9 @@ void main() async {
   runApp(
     DevicePreview(
       enabled: !kReleaseMode,
+
       builder: (context) => const MyApp(), // Wrap your app
+
     ),
   );
 }
@@ -28,8 +30,10 @@ class MyApp extends StatelessWidget {
     return SafeArea(
       child: MaterialApp.router(
         useInheritedMediaQuery: true,
+
         locale: DevicePreview.locale(context),
         builder: DevicePreview.appBuilder,
+
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
