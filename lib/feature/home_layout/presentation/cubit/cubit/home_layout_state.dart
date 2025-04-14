@@ -5,7 +5,6 @@ sealed class HomeLayoutState {
   Widget getScreen();
 }
 
-
 final class HomeLayoutHomeState extends HomeLayoutState {
   @override
   Widget getScreen() {
@@ -19,7 +18,10 @@ final class HomeLayoutHomeState extends HomeLayoutState {
 final class HomeLayoutDetectionState extends HomeLayoutState {
   @override
   Widget getScreen() {
-    return const DetectionScreen();
+    return BlocProvider(
+      create: (context) => DetectionCubit(DetectionRepoImpl()),
+      child: const DetectionScreen(),
+    );
   }
 }
 
