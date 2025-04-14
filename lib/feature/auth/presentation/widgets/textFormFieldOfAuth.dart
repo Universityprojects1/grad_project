@@ -16,6 +16,8 @@ class CustomTextFieldOfAuth extends StatelessWidget {
     this.isPadding = true,
     this.suffixIcon,
     this.prefixIcon,
+    required this.obscureText,
+    this.filled = false,
   }) : _focusNode = focusNode;
 
   final FocusNode? _focusNode;
@@ -28,45 +30,50 @@ class CustomTextFieldOfAuth extends StatelessWidget {
   final bool isPadding;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final bool obscureText;
+  final bool filled;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: isPadding ? 12.0 : 0),
       child: TextFormField(
+        obscureText: obscureText,
         onTap: onTap,
         controller: controller,
         focusNode: _focusNode,
         style: AppFonts.textRegular16(context).copyWith(
             fontSize: 16,
-            color: appearColor ? AppColor.borderColor : AppColor.blackColor,
+            color: AppColor.blackColor,
             fontWeight: FontWeight.w500),
         cursorColor: AppColor.primaryColor,
         validator: validator,
         readOnly: readOnly,
         decoration: InputDecoration(
+            fillColor: AppColor.borderColor,
+            filled: filled,
             prefixIcon: prefixIcon != null
                 ? Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: prefixIcon,
-            )
+                    padding: const EdgeInsets.all(10.0),
+                    child: prefixIcon,
+                  )
                 : null,
             suffixIcon: suffixIcon,
             label: Text(title),
             enabled: true,
             labelStyle: AppFonts.textSemiBold16(context)
-                .copyWith(color: AppColor.borderColor),
+                .copyWith(color: AppColor.blackColor),
             focusedBorder: OutlineInputBorder(
                 borderSide:
-                const BorderSide(color: AppColor.borderColor, width: 2),
+                    const BorderSide(color: AppColor.blackColor, width: 2),
                 borderRadius: BorderRadius.circular(8)),
             border: OutlineInputBorder(
                 borderSide:
-                const BorderSide(color: AppColor.borderColor, width: 20),
+                    const BorderSide(color: AppColor.blackColor, width: 20),
                 borderRadius: BorderRadius.circular(8)),
             enabledBorder: OutlineInputBorder(
                 borderSide:
-                const BorderSide(color: AppColor.borderColor, width: 2),
+                    const BorderSide(color: AppColor.blackColor, width: 2),
                 borderRadius: BorderRadius.circular(8))),
       ),
     );

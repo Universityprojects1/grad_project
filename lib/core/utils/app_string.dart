@@ -21,4 +21,22 @@ abstract class AppString {
   static const String haveAccount = "Already have an Account?";
   static const String name = "Name";
   static const String phone = "Phone";
+  static const String irrigation = "Irrigation";
+  static const String fertilizer = "Fertilizer";
+  static const String pesticide = "Pesticide";
+  static const String controls = "Controls";
+  static const String dateAndTime = "Date and Time";
+  static const String date = "Date";
+  static const String startTime = "Start Time";
+  static const String endTime = "End Time";
+  static const String save = "Save";
+  static const String numberOfHours = "Number of hours";
+  static const String txtOfDateAndTime = "Choose Date and Time to";
+  static const String home = "Home";
+  static const String detection = "Detection";
+  static const String selectLocation = "Select Location";
+  static const String token =
+      "pk.eyJ1IjoibW9zdGFmYWVzbWFpbCIsImEiOiJjbTVhdm5qeHoxb3JrMnNxcnM4NTV3c2RhIn0.58jfOFp_7LAyfBWku3h1Gw";
+  static const String apiOfMap =
+      "https://api.mapbox.com/styles/v1/mostafaesmail/cm5bnw16500my01s901sn9294/tiles/256/{z}/{x}/{y}@2x?access_token=$token";
 }
