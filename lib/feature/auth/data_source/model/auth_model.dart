@@ -3,12 +3,14 @@ class AuthModel {
   String? email;
   String? password;
   String? phone;
+  String? token;
 
   AuthModel({
     this.name,
     this.email,
     this.password,
     this.phone,
+    this.token,
   });
 
   // fromJson
@@ -17,6 +19,7 @@ class AuthModel {
       name: json['name'],
       email: json['email'],
       phone: json['phone'],
+      token: json['token'],
     );
   }
 
@@ -26,6 +29,7 @@ class AuthModel {
       'name': name,
       'email': email,
       'phone': phone,
+      'token': token,
     };
   }
 }
