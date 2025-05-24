@@ -6,11 +6,11 @@ import 'package:final_proj/feature/auth/data_source/model/auth_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/cache/storage_token.dart';
+import '../../../../core/di/service_locator.dart';
 
 class AuthRemoteImpl extends AuthRemote {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  StorageToken storageToken = StorageToken();
 
   @override
   Future<Either<String, String>> signUp(AuthModel authModel) async {
@@ -19,6 +19,7 @@ class AuthRemoteImpl extends AuthRemote {
         email: authModel.email!,
         password: authModel.password!,
       );
+      await sl<StorageToken>().setToken(credential.user?.uid ?? "");
       await firestore
           .collection(EndPoints.users)
           .doc(credential.user?.uid)
@@ -45,7 +46,7 @@ class AuthRemoteImpl extends AuthRemote {
         email: authModel.email!,
         password: authModel.password!,
       );
-      await storageToken.setToken(credential.user?.uid ?? "");
+      await sl<StorageToken>().setToken(credential.user?.uid ?? "");
       return const Right("User logged in successfully");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
