@@ -1,3 +1,4 @@
+import 'package:bloc/bloc.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:final_proj/firebase_options.dart';
 
@@ -8,6 +9,7 @@ import 'config/routes/routes.dart';
 import 'core/di/service_locator.dart';
 import 'core/services/notifications/local_notifications_service.dart';
 import 'core/services/notifications/puch_notifications.dart';
+import 'core/utils/bloc_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +17,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   setup();
+  Bloc.observer = MyBlocObserver();
   await Future.wait([
     PushNotificationsService.init(),
     LocalNotificationService.init(),

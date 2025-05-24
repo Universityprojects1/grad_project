@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:either_dart/either.dart';
-import 'package:final_proj/core/api/end_points.dart';
 import 'package:final_proj/feature/auth/data_source/data/auth_remote.dart';
 import 'package:final_proj/feature/auth/data_source/model/auth_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../../core/api/endpoints.dart';
 import '../../../../core/cache/storage_token.dart';
 import '../../../../core/di/service_locator.dart';
 

@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:final_proj/core/api/end_points.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+import '../../api/endpoints.dart';
 import '../../cache/storage_token.dart';
 import '../../di/service_locator.dart';
 import 'local_notifications_service.dart';
