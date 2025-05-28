@@ -21,11 +21,13 @@ class _HomeLayoutScreenState extends State<HomeLayoutScreen> {
     "Weather",
     AppString.detection,
     "Pump Control",
+    "Plant Health",
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.whiteColor,
       appBar: AppBar(
         title: Text(
           title[context.read<HomeLayoutCubit>().currentIndex],
@@ -75,6 +77,15 @@ class _HomeLayoutScreenState extends State<HomeLayoutScreen> {
               color: AppColor.primaryColor,
             ),
             title: const Text('Control'),
+          ),
+          FlashyTabBarItem(
+            activeColor: AppColor.primaryColor,
+            icon: const Icon(
+              Icons.health_and_safety_outlined,
+              color: AppColor.primaryColor,
+              size: 30,
+            ),
+            title: const Text('Health'),
           ),
         ],
       ),

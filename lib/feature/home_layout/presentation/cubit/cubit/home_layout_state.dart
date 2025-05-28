@@ -31,3 +31,10 @@ final class HomeLayoutControlState extends HomeLayoutState {
     return const ControlScreen();
   }
 }
+
+final class HomeLayoutHealthState extends HomeLayoutState {
+  @override
+  Widget getScreen() {
+    return const HealthScreen();
+  }
+}
