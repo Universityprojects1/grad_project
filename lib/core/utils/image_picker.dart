@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,11 +17,12 @@ class ImagePickerHelper {
     }
     return null;
   }
-
-  void showImageSourceActionSheet({
+  Future<void> showImageSourceActionSheet({
     required BuildContext context,
-    required Function(File image) onImagePicked,
-  }) {
+    required Function(File) onImagePicked,
+  }) async {
+    final Completer<File?> completer = Completer<File?>();
+
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -37,7 +39,10 @@ class ImagePickerHelper {
                 onTap: () async {
                   Navigator.pop(context);
                   final file = await pickImage(ImageSource.camera);
-                  if (file != null) onImagePicked(file);
+                  if (file != null) {
+                    onImagePicked(file);
+                    completer.complete(file);
+                  }
                 },
               ),
               ListTile(
@@ -46,7 +51,10 @@ class ImagePickerHelper {
                 onTap: () async {
                   Navigator.pop(context);
                   final file = await pickImage(ImageSource.gallery);
-                  if (file != null) onImagePicked(file);
+                  if (file != null) {
+                    onImagePicked(file);
+                    completer.complete(file);
+                  }
                 },
               ),
             ],
@@ -54,5 +62,7 @@ class ImagePickerHelper {
         );
       },
     );
+
+    await completer.future;
   }
 }

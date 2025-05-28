@@ -20,56 +20,70 @@ class _DetectionScreenState extends State<DetectionScreen> {
   final ImagePickerHelper _imagePickerHelper = ImagePickerHelper();
 
   Future<void> _selectImage() async {
-    _imagePickerHelper.showImageSourceActionSheet(
+    await _imagePickerHelper.showImageSourceActionSheet(
       context: context,
       onImagePicked: (File image) {
         _selectedImage = image;
       },
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: BlocBuilder<DetectionCubit, DetectionState>(
-        builder: (context, state) {
-          if (state is DetectionLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is DetectionError) {
-            return Center(
-                child: Text(
-              state.message,
-              style: const TextStyle(color: Colors.white),
-            ));
-          } else if (state is DetectionSuccess) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.memory(
-                    base64Decode(state.detectionModel.image ?? ""),
-                    height: 300,
-                  ),
-                  // You can add more widgets to display detection results here
-                ],
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+            child: BlocBuilder<DetectionCubit, DetectionState>(
+              builder: (context, state) {
+                if (state is DetectionLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is DetectionError) {
+                  return Center(
+                      child: Text(
+                    state.message,
+                    style: const TextStyle(color: Colors.white),
+                  ));
+                } else if (state is DetectionSuccess) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.memory(
+                          base64Decode(state.detectionModel.image ?? ""),
+                          height: 300,
+                        ),
+                        // You can add more widgets to display detection results here
+                      ],
+                    ),
+                  );
+                }
+                return const SizedBox();
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                onPressed: () async {
+                  await _selectImage().then(
+                    (value) {
+                      if (_selectedImage != null) {
+                        context.read<DetectionCubit>().postDetection(
+                              DetectionModel(imageFile: _selectedImage!),
+                            );
+                      }
+                    },
+                  );
+                },
+                child: const Icon(Icons.add_a_photo),
               ),
-            );
-          }
-          return const SizedBox();
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await _selectImage().then(
-            (value) {
-              context
-                  .read<DetectionCubit>()
-                  .postDetection(DetectionModel(imageFile: _selectedImage!));
-            },
-          );
-        },
-        child: const Icon(Icons.add_a_photo),
+            ),
+          ),
+        ],
       ),
     );
   }
