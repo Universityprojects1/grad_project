@@ -1279,6 +1279,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.4"
+  timer_widget:
+    dependency: "direct main"
+    description:
+      name: timer_widget
+      sha256: "9e5e4afe3e1be06803c28b1dc3426e417f521e8f57a53533b0cf18ddabb4d1a5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   timezone:
     dependency: transitive
     description:

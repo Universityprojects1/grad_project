@@ -16,6 +16,7 @@ class WeatherCubit extends Cubit<WeatherState> {
   double lon = 0;
 
   void updateLocation() async {
+    emit(WeatherLoading());
     await locationService.checkAndRequestLocationService();
     await locationService.checkAndRequestLocationPermission();
     var loc = await locationService.location.getLocation();
