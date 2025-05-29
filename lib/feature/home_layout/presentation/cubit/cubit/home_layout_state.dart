@@ -18,10 +18,14 @@ final class HomeLayoutHomeState extends HomeLayoutState {
 final class HomeLayoutDetectionState extends HomeLayoutState {
   @override
   Widget getScreen() {
-    return BlocProvider(
-      create: (context) => DetectionCubit(),
-      child: const DetectionScreen(),
-    );
+    return MultiBlocProvider(providers: [
+      BlocProvider(
+        create: (context) => DetectionCubit()..startListening(),
+      ),
+      BlocProvider(
+        create: (context) => DetectionCameraCubit(),
+      ),
+    ], child: const DetectionScreen());
   }
 }
 

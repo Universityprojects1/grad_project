@@ -3,6 +3,7 @@ import 'package:final_proj/feature/auth/presentation/screens/forget_password/for
 import 'package:final_proj/feature/auth/presentation/screens/sign_in/sign_in_screen.dart';
 import 'package:final_proj/feature/auth/presentation/screens/sign_up/sign_up_screen.dart';
 import 'package:final_proj/feature/auth/presentation/screens/splash/splash_screen.dart';
+import 'package:final_proj/feature/detection/presentation/manager/detection_with_camera/detection_camera_cubit.dart';
 import 'package:final_proj/feature/home_feature/presentation/manager/weather_cubit.dart';
 import 'package:final_proj/feature/home_feature/presentation/screens/home.dart';
 
@@ -13,6 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../../feature/detection/data_source/model/detection_model.dart';
+import '../../feature/detection/presentation/screen/detection_with_camera.dart';
 import '../../feature/home_feature/presentation/screens/flutter_map_screen.dart';
 
 class AppRoute {
@@ -23,6 +26,7 @@ class AppRoute {
   static const forgetPasswordScreen = '/forgetPasswordScreen';
   static const homeLayout = '/homeLayout';
   static const flutterMapScreen = '/flutterMapScreen';
+  static const detectionWithCamera = '/DetectionWithCamera';
 
   static final router = GoRouter(
     routes: [
@@ -30,6 +34,15 @@ class AppRoute {
         path: home,
         builder: (context, state) => const HomePage(),
       ),
+      GoRoute(
+          path: detectionWithCamera,
+          builder: (context, state) {
+            final detectionModel = state.extra as DetectionModel;
+            return BlocProvider(
+              create: (context) => DetectionCameraCubit(),
+              child: DetectionWithCamera(detectionModel: detectionModel),
+            );
+          }),
       GoRoute(
         path: splashScreen,
         builder: (context, state) => const SplashScreen(),
