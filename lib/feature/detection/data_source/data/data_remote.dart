@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
@@ -9,7 +8,11 @@ import 'package:final_proj/core/erorr/failure.dart';
 import 'package:final_proj/feature/detection/data_source/model/detection_model.dart';
 
 class DetectionRemote {
-  ApiConsumer apiConsumer = DioConsumer(dio: Dio());
+  ApiConsumer apiConsumer = DioConsumer(
+      dio: Dio(BaseOptions(
+    connectTimeout: const Duration(seconds: 30),
+    receiveTimeout: const Duration(seconds: 60),
+  )));
 
   Future<Either<Failure, DetectionModel>> postDetection(
       DetectionModel data) async {
