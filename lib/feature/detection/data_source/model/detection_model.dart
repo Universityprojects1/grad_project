@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:typed_data';
+
 
 import 'package:dio/dio.dart';
 
@@ -11,7 +11,7 @@ class DetectionModel {
 
   factory DetectionModel.fromJson(Map<String, dynamic> json) {
     return DetectionModel(
-      image: json['image_base64'] as String?,
+      image: json['image_with_label'] as String?,
     );
   }
 
