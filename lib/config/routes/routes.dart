@@ -17,11 +17,11 @@ import '../../feature/home_feature/presentation/screens/flutter_map_screen.dart'
 
 class AppRoute {
   static const home = '/home';
-  static const splashScreen = '/splash';
+  static const splashScreen = '/';
   static const signInScreen = '/signInScreen';
   static const signUpScreen = '/signUpScreen';
   static const forgetPasswordScreen = '/forgetPasswordScreen';
-  static const homeLayout = '/';
+  static const homeLayout = '/homeLayout';
   static const flutterMapScreen = '/flutterMapScreen';
 
   static final router = GoRouter(
