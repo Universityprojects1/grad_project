@@ -35,6 +35,14 @@ final class HomeLayoutControlState extends HomeLayoutState {
 final class HomeLayoutHealthState extends HomeLayoutState {
   @override
   Widget getScreen() {
-    return const HealthScreen();
+    return BlocProvider(
+      create: (context) => NpkCubit(
+        NpkSocketService(
+
+            // Replace with your WebSocket port
+            ),
+      )..connect("4.3.2.24", 8765),
+      child: HealthScreen(),
+    );
   }
 }
