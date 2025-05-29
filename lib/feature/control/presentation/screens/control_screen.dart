@@ -1,71 +1,120 @@
 import 'package:final_proj/core/utils/app_color.dart';
 import 'package:final_proj/core/utils/app_string.dart';
 import 'package:final_proj/core/utils/component/custom_button.dart';
-import 'package:final_proj/feature/control/presentation/screens/date_and_time_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import '../widgets/section_of_action.dart';
 
-import '../../../../core/utils/component/timer_manager.dart';
-
-class ControlScreen extends StatelessWidget {
+class ControlScreen extends StatefulWidget {
   const ControlScreen({super.key});
 
   @override
+  State<ControlScreen> createState() => _ControlScreenState();
+}
+
+class _ControlScreenState extends State<ControlScreen> {
+  final TextEditingController controllerSecondsIrrigation =
+      TextEditingController();
+  final TextEditingController controllerMinutesIrrigation =
+      TextEditingController();
+  final TextEditingController controllerHoursIrrigation =
+      TextEditingController();
+  final TextEditingController controllerSecondsFertilizer =
+      TextEditingController();
+  final TextEditingController controllerMinutesFertilizer =
+      TextEditingController();
+  final TextEditingController controllerHoursFertilizer =
+      TextEditingController();
+  final TextEditingController controllerSecondsPesticide =
+      TextEditingController();
+  final TextEditingController controllerMinutesPesticide =
+      TextEditingController();
+  final TextEditingController controllerHoursPesticide =
+      TextEditingController();
+  final FocusNode focusNodeSecondsIrrigation = FocusNode();
+  final FocusNode focusNodeMinutesIrrigation = FocusNode();
+  final FocusNode focusNodeHoursIrrigation = FocusNode();
+  final FocusNode focusNodeSecondsFertilizer = FocusNode();
+  final FocusNode focusNodeMinutesFertilizer = FocusNode();
+  final FocusNode focusNodeHoursFertilizer = FocusNode();
+  final FocusNode focusNodeSecondsPesticide = FocusNode();
+  final FocusNode focusNodeMinutesPesticide = FocusNode();
+  final FocusNode focusNodeHoursPesticide = FocusNode();
+  String titleIrrigation = AppString.irrigation;
+  String titleFertilizer = AppString.fertilizer;
+  String titlePesticide = AppString.pesticide;
+  bool isOnPesticide = false;
+  bool isOnFertilizer = false;
+  bool isOnIrrigation = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CustomButton(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DateAndTimeScreen(
-                        title: AppString.irrigation,
-                        customTimer:
-                            TimerManager().getTimer(AppString.irrigation)),
-                  ));
-            },
-            text: AppString.irrigation,
-            color: AppColor.primaryColor,
-            height: 70,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 20,
+            children: [
+              const Gap(20),
+              SectionOfAction(
+                  controllerSeconds: controllerSecondsIrrigation,
+                  controllerMinutes: controllerMinutesIrrigation,
+                  controllerHours: controllerHoursIrrigation,
+                  focusNodeSeconds: focusNodeSecondsIrrigation,
+                  focusNodeMinutes: focusNodeMinutesIrrigation,
+                  focusNodeHours: focusNodeHoursIrrigation,
+                  title: titleIrrigation,
+                  isOn: isOnIrrigation,
+                  onSwitchChanged: (bool value) {
+                    setState(() {
+                      isOnIrrigation = value;
+                    });
+                  }),
+              const Gap(20),
+              SectionOfAction(
+                  controllerSeconds: controllerSecondsFertilizer,
+                  controllerMinutes: controllerMinutesFertilizer,
+                  controllerHours: controllerHoursFertilizer,
+                  focusNodeSeconds: focusNodeSecondsFertilizer,
+                  focusNodeMinutes: focusNodeMinutesFertilizer,
+                  focusNodeHours: focusNodeHoursFertilizer,
+                  title: titleFertilizer,
+                  isOn: isOnFertilizer,
+                  onSwitchChanged: (bool value) {
+                    setState(() {
+                      isOnFertilizer = value;
+                    });
+                  }),
+              const Gap(20),
+              SectionOfAction(
+                  controllerSeconds: controllerSecondsPesticide,
+                  controllerMinutes: controllerMinutesPesticide,
+                  controllerHours: controllerHoursPesticide,
+                  focusNodeSeconds: focusNodeSecondsPesticide,
+                  focusNodeMinutes: focusNodeMinutesPesticide,
+                  focusNodeHours: focusNodeHoursPesticide,
+                  title: titlePesticide,
+                  isOn: isOnPesticide,
+                  onSwitchChanged: (bool value) {
+                    setState(() {
+                      isOnPesticide = value;
+                    });
+                  }),
+              const Gap(20),
+              const CustomButton(
+                text: AppString.save,
+                color: AppColor.colorButtonNew,
+                colorOfButton: AppColor.blackColor,
+              ),
+              const Gap(10),
+            ],
           ),
-          const Gap(15),
-          CustomButton(
-            text: AppString.fertilizer,
-            color: AppColor.colorButton2,
-            height: 70,
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DateAndTimeScreen(
-                      title: AppString.irrigation,
-                      customTimer:
-                          TimerManager().getTimer(AppString.fertilizer),
-                    ),
-                  ));
-            },
-          ),
-          const Gap(15),
-          CustomButton(
-            text: AppString.pesticide,
-            color: AppColor.colorButton3,
-            height: 70,
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DateAndTimeScreen(
-                        title: AppString.irrigation,
-                        customTimer:
-                            TimerManager().getTimer(AppString.pesticide)),
-                  ));
-            },
-          ),
-        ],
+        ),
       ),
     );
   }

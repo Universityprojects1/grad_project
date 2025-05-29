@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../health_screen/presentation/screen/health_screen.dart';
+
 part 'home_layout_state.dart';
 
 class HomeLayoutCubit extends Cubit<HomeLayoutState> {
@@ -26,7 +28,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutState> {
         emit(HomeLayoutControlState());
         break;
       default:
-        emit(HomeLayoutHomeState());
+        emit(HomeLayoutHealthState());
     }
   }
 }

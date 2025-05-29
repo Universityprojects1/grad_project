@@ -22,77 +22,204 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   StorageToken storageToken = StorageToken();
 
+  List<Color> _getTemperatureGradient(double temperature) {
+    if (temperature <= 10) {
+      return [Colors.blue.shade700, Colors.blue.shade200];
+    } else if (temperature > 10 && temperature <= 25) {
+      return [Colors.green.shade600, Colors.green.shade200];
+    } else if (temperature > 25 && temperature <= 35) {
+      return [Colors.orange.shade700, Colors.orange.shade300];
+    } else {
+      return [Colors.red.shade800, Colors.red.shade400];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WeatherCubit, WeatherState>(
       builder: (context, state) {
         if (state is WeatherSuccess) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(
-                width: double.infinity,
-              ),
-              const Gap(30),
-              Text(
-                state.weatherResponse.name,
-                style: AppFonts.textRegular16(context).copyWith(
-                    fontSize: 40,
-                    color: AppColor.blackColor,
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "${state.weatherResponse.main.tempMax.toString()}°C",
-                style: AppFonts.textRegular16(context)
-                    .copyWith(fontSize: 70, color: AppColor.blackColor),
-              ),
-              Text(
-                state.weatherResponse.weather[0].description,
-                style: AppFonts.textRegular16(context).copyWith(
-                    fontSize: 30,
-                    color: AppColor.whiteColor,
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Cloud Coverage: ${state.weatherResponse.clouds.all}%",
-                style: AppFonts.textRegular16(context).copyWith(
-                    fontSize: 24,
-                    color: AppColor.whiteColor,
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Humidity: ${state.weatherResponse.main.humidity}%",
-                style: AppFonts.textRegular16(context).copyWith(
-                    fontSize: 24,
-                    color: AppColor.whiteColor,
-                    fontWeight: FontWeight.bold),
-              ),
-              const Gap(30),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: CustomButton(
-                    onTap: () async {
-                      var result = await GoRouter.of(context).push(
-                          AppRoute.flutterMapScreen,
-                          extra: LatLng(context.read<WeatherCubit>().lat,
-                              context.read<WeatherCubit>().lon));
-                      if (result != null &&
-                          result is List &&
-                          result.length == 2) {
-                        final lat = result[0] as double;
-                        final lon = result[1] as double;
-                        context.read<WeatherCubit>().getWeather(lat, lon);
-                      }
-                    },
-                    text: AppString.selectLocation,
-                    color: AppColor.colorButton2),
-              )
-            ],
+          return SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: MediaQuery.sizeOf(context).height * .2,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: _getTemperatureGradient(
+                          state.weatherResponse.main.tempMax),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: double.infinity,
+                ),
+                const Gap(30),
+                Text(
+                  state.weatherResponse.name,
+                  style: AppFonts.textRegular16(context).copyWith(
+                      fontSize: 22,
+                      color: AppColor.blackColor,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "${state.weatherResponse.main.tempMax.toString()}°C",
+                  style: AppFonts.textRegular16(context).copyWith(
+                      fontSize: 32,
+                      color: AppColor.blackColor,
+                      fontWeight: FontWeight.bold),
+                ),
+                const Gap(5),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(16)),
+                                border:
+                                    Border.all(color: AppColor.borderColor)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Cloud Coverage",
+                                    style: AppFonts.textRegular16(context)
+                                        .copyWith(
+                                            fontSize: 16,
+                                            color: AppColor.blackColor,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                  const Gap(15),
+                                  Text(
+                                    "${state.weatherResponse.clouds.all}%",
+                                    style: AppFonts.textRegular16(context)
+                                        .copyWith(
+                                            fontSize: 24,
+                                            color: AppColor.blackColor,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            )),
+                      ),
+                      const Gap(10),
+                      Expanded(
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(16)),
+                                border:
+                                    Border.all(color: AppColor.borderColor)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Humidity",
+                                    style: AppFonts.textRegular16(context)
+                                        .copyWith(
+                                            fontSize: 16,
+                                            color: AppColor.blackColor,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                  const Gap(15),
+                                  Text(
+                                    "${state.weatherResponse.main.humidity}%",
+                                    style: AppFonts.textRegular16(context)
+                                        .copyWith(
+                                            fontSize: 24,
+                                            color: AppColor.blackColor,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            )),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(16)),
+                                border:
+                                    Border.all(color: AppColor.borderColor)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Wind Speed",
+                                    style: AppFonts.textRegular16(context)
+                                        .copyWith(
+                                            fontSize: 16,
+                                            color: AppColor.blackColor,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                  const Gap(15),
+                                  Text(
+                                    "${state.weatherResponse.wind.speed} km/h",
+                                    style: AppFonts.textRegular16(context)
+                                        .copyWith(
+                                            fontSize: 24,
+                                            color: AppColor.blackColor,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            )),
+                      ),
+                    ],
+                  ),
+                ),
+                const Gap(30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: CustomButton(
+                      onTap: () async {
+                        var result = await GoRouter.of(context).push(
+                            AppRoute.flutterMapScreen,
+                            extra: LatLng(context.read<WeatherCubit>().lat,
+                                context.read<WeatherCubit>().lon));
+                        if (result != null &&
+                            result is List &&
+                            result.length == 2) {
+                          final lat = result[0] as double;
+                          final lon = result[1] as double;
+                          context.read<WeatherCubit>().getWeather(lat, lon);
+                        }
+                      },
+                      colorOfButton: AppColor.blackColor,
+                      text: AppString.selectLocation,
+                      color: AppColor.colorButtonNew),
+                )
+              ],
+            ),
           );
         } else if (state is WeatherFailure) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const SizedBox(width: double.infinity,),
               Text(state.error),
             ],
           );
@@ -100,11 +227,12 @@ class _HomePageState extends State<HomePage> {
           return const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(width: double.infinity,),
               SizedBox(
                 width: 30,
                 height: 30,
                 child: CircularProgressIndicator(
-                  color: Colors.white,
+                  color: AppColor.primaryColor,
                 ),
               ),
             ],

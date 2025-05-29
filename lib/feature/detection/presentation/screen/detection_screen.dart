@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:final_proj/core/utils/fonts.dart';
 import 'package:final_proj/feature/detection/presentation/manager/detection_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +35,39 @@ class _DetectionScreenState extends State<DetectionScreen> {
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(
+                "assets/images/Depth 4, Frame 0.png",
+                width: double.infinity,
+                fit: BoxFit.fitWidth,
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Plant Detection",
+                      style: AppFonts.textBold20(context).copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Select an image to detect plant diseases",
+                      style: AppFonts.textSemiBold16(context).copyWith(
+                            color: Colors.black,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
           Expanded(
             child: BlocBuilder<DetectionCubit, DetectionState>(
               builder: (context, state) {
