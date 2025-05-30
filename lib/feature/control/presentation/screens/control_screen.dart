@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import '../widgets/section_of_action.dart';
 
-class ControlScreen extends StatefulWidget {
-  const ControlScreen({super.key});
+class PumpControlScreen extends StatefulWidget {
+  const PumpControlScreen({super.key});
 
   @override
-  State<ControlScreen> createState() => _ControlScreenState();
+  State<PumpControlScreen> createState() => _PumpControlScreenState();
 }
 
-class _ControlScreenState extends State<ControlScreen> {
+class _PumpControlScreenState extends State<PumpControlScreen> {
   final TextEditingController controllerSecondsIrrigation =
       TextEditingController();
   final TextEditingController controllerMinutesIrrigation =
@@ -60,6 +60,7 @@ class _ControlScreenState extends State<ControlScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 20,
             children: [
+
               const Gap(20),
               SectionOfAction(
                   controllerSeconds: controllerSecondsIrrigation,
@@ -107,6 +108,7 @@ class _ControlScreenState extends State<ControlScreen> {
                   }),
               const Gap(20),
               const CustomButton(
+
                 text: AppString.save,
                 color: AppColor.colorButtonNew,
                 colorOfButton: AppColor.blackColor,

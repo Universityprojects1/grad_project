@@ -20,7 +20,7 @@ class _HomeLayoutScreenState extends State<HomeLayoutScreen> {
   List<String> title = [
     "Weather",
     AppString.detection,
-    "Pump Control",
+    "Controls",
     "Plant Health",
   ];
 
