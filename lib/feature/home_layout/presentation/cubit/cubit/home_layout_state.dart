@@ -32,7 +32,7 @@ final class HomeLayoutDetectionState extends HomeLayoutState {
 final class HomeLayoutControlState extends HomeLayoutState {
   @override
   Widget getScreen() {
-    return const ControlScreen();
+    return const MainControl();
   }
 }
 
