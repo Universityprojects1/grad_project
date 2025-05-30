@@ -1,7 +1,10 @@
 import 'package:final_proj/core/utils/app_color.dart';
 import 'package:final_proj/core/utils/app_string.dart';
 import 'package:final_proj/core/utils/component/custom_button.dart';
+import 'package:final_proj/feature/control/presentation/cubit/pump_control_cubit.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import '../widgets/section_of_action.dart';
 
@@ -43,81 +46,165 @@ class _PumpControlScreenState extends State<PumpControlScreen> {
   String titleIrrigation = AppString.irrigation;
   String titleFertilizer = AppString.fertilizer;
   String titlePesticide = AppString.pesticide;
-  bool isOnPesticide = false;
-  bool isOnFertilizer = false;
-  bool isOnIrrigation = false;
+
+  void _showErrorSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+
+  void _showSuccessSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
+    return BlocConsumer<PumpControlCubit, PumpControlState>(
+      listener: (context, state) {
+        // Show error message if there is any
+        if (state.errorMessage != null) {
+          _showErrorSnackBar(context, state.errorMessage!);
+        }
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 20,
-            children: [
-
-              const Gap(20),
-              SectionOfAction(
-                  controllerSeconds: controllerSecondsIrrigation,
-                  controllerMinutes: controllerMinutesIrrigation,
-                  controllerHours: controllerHoursIrrigation,
-                  focusNodeSeconds: focusNodeSecondsIrrigation,
-                  focusNodeMinutes: focusNodeMinutesIrrigation,
-                  focusNodeHours: focusNodeHoursIrrigation,
-                  title: titleIrrigation,
-                  isOn: isOnIrrigation,
-                  onSwitchChanged: (bool value) {
-                    setState(() {
-                      isOnIrrigation = value;
-                    });
-                  }),
-              const Gap(20),
-              SectionOfAction(
-                  controllerSeconds: controllerSecondsFertilizer,
-                  controllerMinutes: controllerMinutesFertilizer,
-                  controllerHours: controllerHoursFertilizer,
-                  focusNodeSeconds: focusNodeSecondsFertilizer,
-                  focusNodeMinutes: focusNodeMinutesFertilizer,
-                  focusNodeHours: focusNodeHoursFertilizer,
-                  title: titleFertilizer,
-                  isOn: isOnFertilizer,
-                  onSwitchChanged: (bool value) {
-                    setState(() {
-                      isOnFertilizer = value;
-                    });
-                  }),
-              const Gap(20),
-              SectionOfAction(
-                  controllerSeconds: controllerSecondsPesticide,
-                  controllerMinutes: controllerMinutesPesticide,
-                  controllerHours: controllerHoursPesticide,
-                  focusNodeSeconds: focusNodeSecondsPesticide,
-                  focusNodeMinutes: focusNodeMinutesPesticide,
-                  focusNodeHours: focusNodeHoursPesticide,
-                  title: titlePesticide,
-                  isOn: isOnPesticide,
-                  onSwitchChanged: (bool value) {
-                    setState(() {
-                      isOnPesticide = value;
-                    });
-                  }),
-              const Gap(20),
-              const CustomButton(
-
-                text: AppString.save,
-                color: AppColor.colorButtonNew,
-                colorOfButton: AppColor.blackColor,
-              ),
-              const Gap(10),
-            ],
-          ),
-        ),
-      ),
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child:
+               Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Gap(20),
+                        SectionOfAction(
+                          controllerSeconds: controllerSecondsIrrigation,
+                          controllerMinutes: controllerMinutesIrrigation,
+                          controllerHours: controllerHoursIrrigation,
+                          focusNodeSeconds: focusNodeSecondsIrrigation,
+                          focusNodeMinutes: focusNodeMinutesIrrigation,
+                          focusNodeHours: focusNodeHoursIrrigation,
+                          title: titleIrrigation,
+                          isOn: state.isIrrigationOn,
+                          onSwitchChanged: (bool value) {
+                            final cubit = context.read<PumpControlCubit>();
+                            cubit.controlIrrigationPump(
+                              isOn: value,
+                              hours: int.tryParse(controllerHoursIrrigation.text) ?? 0,
+                              minutes: int.tryParse(controllerMinutesIrrigation.text) ?? 0,
+                              seconds: int.tryParse(controllerSecondsIrrigation.text) ?? 0,
+                            );
+                          },
+                        ),
+                        const Gap(20),
+                        SectionOfAction(
+                          controllerSeconds: controllerSecondsFertilizer,
+                          controllerMinutes: controllerMinutesFertilizer,
+                          controllerHours: controllerHoursFertilizer,
+                          focusNodeSeconds: focusNodeSecondsFertilizer,
+                          focusNodeMinutes: focusNodeMinutesFertilizer,
+                          focusNodeHours: focusNodeHoursFertilizer,
+                          title: titleFertilizer,
+                          isOn: state.isFertilizerOn,
+                          onSwitchChanged: (bool value) {
+                            final cubit = context.read<PumpControlCubit>();
+                            cubit.controlFertilizerPump(
+                              isOn: value,
+                              hours: int.tryParse(controllerHoursFertilizer.text) ?? 0,
+                              minutes: int.tryParse(controllerMinutesFertilizer.text) ?? 0,
+                              seconds: int.tryParse(controllerSecondsFertilizer.text) ?? 0,
+                            );
+                          },
+                        ),
+                        const Gap(20),
+                        SectionOfAction(
+                          controllerSeconds: controllerSecondsPesticide,
+                          controllerMinutes: controllerMinutesPesticide,
+                          controllerHours: controllerHoursPesticide,
+                          focusNodeSeconds: focusNodeSecondsPesticide,
+                          focusNodeMinutes: focusNodeMinutesPesticide,
+                          focusNodeHours: focusNodeHoursPesticide,
+                          title: titlePesticide,
+                          isOn: state.isPesticideOn,
+                          onSwitchChanged: (bool value) {
+                            final cubit = context.read<PumpControlCubit>();
+                            cubit.controlPesticidePump(
+                              isOn: value,
+                              hours: int.tryParse(controllerHoursPesticide.text) ?? 0,
+                              minutes: int.tryParse(controllerMinutesPesticide.text) ?? 0,
+                              seconds: int.tryParse(controllerSecondsPesticide.text) ?? 0,
+                            );
+                          },
+                        ),
+                        const Gap(20),
+                        CustomButton(
+                          text: AppString.save,
+                          color: AppColor.colorButtonNew,
+                          colorOfButton: AppColor.blackColor,
+                          onTap: () {
+                            final cubit = context.read<PumpControlCubit>();
+                            cubit.saveAllPumpSettings(
+                              isIrrigationOn: state.isIrrigationOn,
+                              irrigationHours: int.tryParse(controllerHoursIrrigation.text) ?? 0,
+                              irrigationMinutes: int.tryParse(controllerMinutesIrrigation.text) ?? 0,
+                              irrigationSeconds: int.tryParse(controllerSecondsIrrigation.text) ?? 0,
+                              
+                              isFertilizerOn: state.isFertilizerOn,
+                              fertilizerHours: int.tryParse(controllerHoursFertilizer.text) ?? 0,
+                              fertilizerMinutes: int.tryParse(controllerMinutesFertilizer.text) ?? 0,
+                              fertilizerSeconds: int.tryParse(controllerSecondsFertilizer.text) ?? 0,
+                              
+                              isPesticideOn: state.isPesticideOn,
+                              pesticideHours: int.tryParse(controllerHoursPesticide.text) ?? 0,
+                              pesticideMinutes: int.tryParse(controllerMinutesPesticide.text) ?? 0,
+                              pesticideSeconds: int.tryParse(controllerSecondsPesticide.text) ?? 0,
+                            );
+                            _showSuccessSnackBar(context, 'Saving pump settings...');
+                          },
+                        ),
+                        const Gap(10),
+                      ],
+                    ),
+                  ),
+                ),
+        );
+      },
     );
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers and focus nodes
+    controllerSecondsIrrigation.dispose();
+    controllerMinutesIrrigation.dispose();
+    controllerHoursIrrigation.dispose();
+    controllerSecondsFertilizer.dispose();
+    controllerMinutesFertilizer.dispose();
+    controllerHoursFertilizer.dispose();
+    controllerSecondsPesticide.dispose();
+    controllerMinutesPesticide.dispose();
+    controllerHoursPesticide.dispose();
+    
+    focusNodeSecondsIrrigation.dispose();
+    focusNodeMinutesIrrigation.dispose();
+    focusNodeHoursIrrigation.dispose();
+    focusNodeSecondsFertilizer.dispose();
+    focusNodeMinutesFertilizer.dispose();
+    focusNodeHoursFertilizer.dispose();
+    focusNodeSecondsPesticide.dispose();
+    focusNodeMinutesPesticide.dispose();
+    focusNodeHoursPesticide.dispose();
+    
+    super.dispose();
   }
 }

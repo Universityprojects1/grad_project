@@ -24,7 +24,7 @@ class AppRoute {
   static const signInScreen = '/signInScreen';
   static const signUpScreen = '/signUpScreen';
   static const forgetPasswordScreen = '/forgetPasswordScreen';
-  static const homeLayout = '/homeLayout';
+  static const homeLayout = '/layout';
   static const flutterMapScreen = '/flutterMapScreen';
   static const detectionWithCamera = '/DetectionWithCamera';
 
