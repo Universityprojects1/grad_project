@@ -12,4 +12,7 @@ class MotorsCubit extends Cubit<MotorsState> {
   Future<void> controlMotor1(String direction) async {
     await _directionsService.controlMotor1(direction);
   }
+  Future<void> controlMotor2(String direction) async {
+    await _directionsService.controlMotor2(direction);
+  }
 }

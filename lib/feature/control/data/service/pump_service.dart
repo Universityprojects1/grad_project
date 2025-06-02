@@ -15,22 +15,17 @@ class PumpControlService {
   }) async {
     try {
       // If turning off, send a stop command instead of regular control
-      final endpoint = isOn ? '$baseUrl/$pumpType/control' : '$baseUrl/$pumpType/stop';
+      final endpoint = '$baseUrl/$pumpType/control';
       final totalTimeInSeconds = (hours * 3600) + (minutes * 60) + seconds;
-      
-      final Map<String, dynamic> payload = isOn 
-          ? {
-              'state': true,
-              'duration': totalTimeInSeconds,
-              'hours': hours,
-              'minutes': minutes,
-              'seconds': seconds,
-            }
-          : {
-              'state': false,
-              'force_stop': true, // Add a force_stop parameter to override any running timer
-            };
-      
+
+      final Map<String, dynamic> payload = {
+        'state': isOn,
+        'duration': totalTimeInSeconds,
+        'hours': hours,
+        'minutes': minutes,
+        'seconds': seconds,
+      };
+
       final response = await http.post(
         Uri.parse(endpoint),
         headers: {'Content-Type': 'application/json'},
@@ -38,9 +33,11 @@ class PumpControlService {
       );
 
       if (response.statusCode == 200) {
-        return true;
+        final data = jsonDecode(response.body);
+        return data["state"];
       } else {
-        print('Failed to control $pumpType. Status code: ${response.statusCode}');
+        print(
+            'Failed to control $pumpType. Status code: ${response.statusCode}');
         return false;
       }
     } catch (e) {

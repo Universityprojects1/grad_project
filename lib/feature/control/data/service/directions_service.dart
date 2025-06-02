@@ -23,4 +23,21 @@ class DirectionsService {
       print('Error controlling Motor 1: $e');
     }
   }
+  Future<void> controlMotor2(String d) async {
+    try {
+      final Map<String, dynamic> payload = {
+        'direction': d,
+      };
+      final response = await http.post(Uri.parse('$baseUrl/motor2'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(payload));
+      if (response.statusCode == 200) {
+        print('Motor 2 controlled successfully: ${response.body}');
+      } else {
+        print('Failed to control Motor 2. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error controlling Motor 2: $e');
+    }
+  }
 }
