@@ -65,6 +65,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
                         Image.network(
                           state.detectionModel.image ?? "",
                           width: double.infinity,
+                          height: 300,
                           fit: BoxFit.fitWidth,
                         ),
                         const SizedBox(height: 20),
