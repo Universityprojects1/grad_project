@@ -95,9 +95,10 @@ class _PumpControlScreenState extends State<PumpControlScreen> {
                           focusNodeMinutes: focusNodeMinutesIrrigation,
                           focusNodeHours: focusNodeHoursIrrigation,
                           title: titleIrrigation,
-                          isOn: state.isIrrigationOn,
+                          isOn: context.read<PumpControlCubit>().isIrrigationOn,
                           onSwitchChanged: (bool value) {
                             final cubit = context.read<PumpControlCubit>();
+                            context.read<PumpControlCubit>().isIrrigationOn = value;
                             cubit.controlIrrigationPump(
                               isOn: value,
                               hours: int.tryParse(controllerHoursIrrigation.text) ?? 0,

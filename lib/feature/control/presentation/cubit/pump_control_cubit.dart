@@ -6,6 +6,10 @@ part 'pump_control_state.dart';
 
 class PumpControlCubit extends Cubit<PumpControlState> {
   final PumpControlService _pumpService;
+  late  bool isIrrigationOn = false;
+  final bool isFertilizerOn = false;
+  final bool isPesticideOn = false;
+
 
   PumpControlCubit({PumpControlService? pumpService}) 
       : _pumpService = pumpService ?? PumpControlService(),
@@ -30,8 +34,8 @@ class PumpControlCubit extends Cubit<PumpControlState> {
       );
       
       if (success) {
+        isIrrigationOn = success ;
         emit(state.copyWith(
-          isIrrigationOn: isOn,
           isLoading: false,
         ));
       } else {
