@@ -98,18 +98,18 @@ class NpkData {
   // Convert NpkData to JSON
   Map<String, dynamic> toJson() {
     return {
-      'nitrogen': nitrogen,
-      'phosphorus': phosphorus,
-      'potassium': potassium,
+      'n': nitrogen,
+      'p': phosphorus,
+      'k': potassium,
     };
   }
 
   // Create NpkData from JSON
   factory NpkData.fromJson(Map<String, dynamic> json) {
     return NpkData(
-      nitrogen: json['nitrogen'].toDouble(),
-      phosphorus: json['phosphorus'].toDouble(),
-      potassium: json['potassium'].toDouble(),
+      nitrogen: json['n'].toDouble(),
+      phosphorus: json['p'].toDouble(),
+      potassium: json['k'].toDouble(),
     );
   }
 }

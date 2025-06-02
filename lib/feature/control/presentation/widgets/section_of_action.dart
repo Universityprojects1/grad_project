@@ -20,21 +20,13 @@ class SectionOfAction extends StatefulWidget {
   });
 
   final TextEditingController controllerSeconds;
-
   final TextEditingController controllerMinutes;
-
   final TextEditingController controllerHours;
-
   final FocusNode focusNodeSeconds;
-
   final FocusNode focusNodeMinutes;
-
   final FocusNode focusNodeHours;
-
   final String title;
-
   final bool isOn;
-
   final Function(bool) onSwitchChanged;
 
   @override
@@ -42,6 +34,24 @@ class SectionOfAction extends StatefulWidget {
 }
 
 class _SectionOfActionState extends State<SectionOfAction> {
+  // Local state for button color
+  late bool _localIsOn;
+  
+  @override
+  void initState() {
+    super.initState();
+    _localIsOn = widget.isOn;
+  }
+  
+  @override
+  void didUpdateWidget(SectionOfAction oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Update local state when parent widget's isOn changes
+    if (oldWidget.isOn != widget.isOn) {
+      _localIsOn = widget.isOn;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -55,16 +65,38 @@ class _SectionOfActionState extends State<SectionOfAction> {
         const Gap(5),
         Row(
           children: [
-            Text("On/Off",
+            Text("Control",
                 style: AppFonts.textRegular16(context).copyWith(
                     fontSize: 16,
                     color: AppColor.blackColor,
                     fontWeight: FontWeight.bold)),
             const Spacer(),
-            Switch.adaptive(
-                activeColor: AppColor.primaryColor,
-                value: widget.isOn,
-                onChanged: widget.onSwitchChanged),
+            ElevatedButton(
+              onPressed: () {
+                // Update local state immediately for visual feedback
+                setState(() {
+                  _localIsOn = !_localIsOn;
+                });
+                
+                // Notify parent of the change
+                widget.onSwitchChanged(!widget.isOn);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _localIsOn ? Colors.red : AppColor.primaryColor,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                minimumSize: const Size(100, 36),
+              ),
+              child: Text(
+                _localIsOn ? "Turn OFF" : "Turn ON",
+                style: AppFonts.textRegular16(context).copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
         const Gap(10),
@@ -81,7 +113,7 @@ class _SectionOfActionState extends State<SectionOfAction> {
                     child: TextFormField(
                       decoration:
                           const InputDecoration.collapsed(hintText: "Seconds"),
-                      keyboardType: TextInputType.number,
+                           keyboardType: TextInputType.number,
                       controller: widget.controllerSeconds,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       focusNode: widget.focusNodeSeconds,
@@ -143,4 +175,5 @@ class _SectionOfActionState extends State<SectionOfAction> {
       ],
     );
   }
+  
 }

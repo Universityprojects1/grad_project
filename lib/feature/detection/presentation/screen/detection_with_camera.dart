@@ -17,40 +17,42 @@ class DetectionWithCamera extends StatelessWidget {
         title: const Text('Result'),
         centerTitle: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Image.memory(
-              base64Decode(detectionModel.image ?? ""),
-              height: 300,
-              fit: BoxFit.fitWidth,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Image.memory(
+                base64Decode(detectionModel.image ?? ""),
+                height: 300,
+                fit: BoxFit.fitWidth,
+              ),
             ),
-          ),
-          const SizedBox(height: 20,width: double.infinity,),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Plant Detection",
-                  style: AppFonts.textBold20(context).copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+            const SizedBox(height: 20,width: double.infinity,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Plant Detection",
+                    style: AppFonts.textBold20(context).copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  "Select an image to detect plant diseases",
-                  style: AppFonts.textSemiBold16(context).copyWith(
-                    color: Colors.black,
+                  const SizedBox(height: 10),
+                  Text(
+                    detectionModel.label ?? "none",
+                    style: AppFonts.textSemiBold16(context).copyWith(
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
