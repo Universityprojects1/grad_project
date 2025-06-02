@@ -82,7 +82,7 @@ class _SectionOfActionState extends State<SectionOfAction> {
                 widget.onSwitchChanged(!widget.isOn);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: _localIsOn ? Colors.red : AppColor.primaryColor,
+                backgroundColor: _localIsOn && widget.isOn ? Colors.red : AppColor.primaryColor,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -90,7 +90,7 @@ class _SectionOfActionState extends State<SectionOfAction> {
                 minimumSize: const Size(100, 36),
               ),
               child: Text(
-                _localIsOn ? "Turn OFF" : "Turn ON",
+                _localIsOn && widget.isOn ? "Turn OFF" : "Turn ON",
                 style: AppFonts.textRegular16(context).copyWith(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
