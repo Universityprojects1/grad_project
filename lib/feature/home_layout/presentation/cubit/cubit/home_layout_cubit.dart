@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../control/presentation/cubit_motors/motors_cubit.dart';
 import '../../../../control/presentation/screens/mainControl.dart';
 import '../../../../detection/presentation/manager/detection_with_camera/detection_camera_cubit.dart';
 import '../../../../health_screen/presentation/screen/health_screen.dart';

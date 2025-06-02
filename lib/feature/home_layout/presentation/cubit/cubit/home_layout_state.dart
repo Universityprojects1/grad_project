@@ -32,12 +32,16 @@ final class HomeLayoutDetectionState extends HomeLayoutState {
 final class HomeLayoutControlState extends HomeLayoutState {
   @override
   Widget getScreen() {
-    return  BlocProvider(
-      create: (context) => PumpControlCubit(
-        pumpService: PumpControlService()
+    return MultiBlocProvider(providers: [
+      BlocProvider(
+        create: (context) => MotorsCubit(),
       ),
-      child: MainControl(),
-    );
+      BlocProvider(
+        create: (context) => PumpControlCubit(
+          pumpService: PumpControlService(),
+        ),
+      ),
+    ], child: const MainControl());
   }
 }
 
