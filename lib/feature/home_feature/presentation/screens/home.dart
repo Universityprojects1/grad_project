@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:final_proj/config/routes/routes.dart';
 import 'package:final_proj/core/utils/app_color.dart';
 import 'package:final_proj/core/utils/app_string.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../../core/cache/storage_token.dart';
 
@@ -59,158 +61,166 @@ class _HomePageState extends State<HomePage> {
                   width: double.infinity,
                 ),
                 const Gap(30),
-                Text(
-                  state.weatherResponse.name,
-                  style: AppFonts.textRegular16(context).copyWith(
-                      fontSize: 22,
-                      color: AppColor.blackColor,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "${state.weatherResponse.main.tempMax.toString()}°C",
-                  style: AppFonts.textRegular16(context).copyWith(
-                      fontSize: 32,
-                      color: AppColor.blackColor,
-                      fontWeight: FontWeight.bold),
-                ),
-                const Gap(5),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
+                FadeInUp(
+                   duration: const Duration(milliseconds: 900),
+                   curve: Curves.linearToEaseOut,
+                  child: Column(
                     children: [
-                      Expanded(
-                        child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(16)),
-                                border:
-                                    Border.all(color: AppColor.borderColor)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Cloud Coverage",
-                                    style: AppFonts.textRegular16(context)
-                                        .copyWith(
-                                            fontSize: 16,
-                                            color: AppColor.blackColor,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                  const Gap(15),
-                                  Text(
-                                    "${state.weatherResponse.clouds.all}%",
-                                    style: AppFonts.textRegular16(context)
-                                        .copyWith(
-                                            fontSize: 24,
-                                            color: AppColor.blackColor,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            )),
+                      Text(
+                        state.weatherResponse.name,
+                        style: AppFonts.textRegular16(context).copyWith(
+                            fontSize: 22,
+                            color: AppColor.blackColor,
+                            fontWeight: FontWeight.bold),
                       ),
-                      const Gap(10),
-                      Expanded(
-                        child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(16)),
-                                border:
-                                    Border.all(color: AppColor.borderColor)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Humidity",
-                                    style: AppFonts.textRegular16(context)
-                                        .copyWith(
-                                            fontSize: 16,
-                                            color: AppColor.blackColor,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                  const Gap(15),
-                                  Text(
-                                    "${state.weatherResponse.main.humidity}%",
-                                    style: AppFonts.textRegular16(context)
-                                        .copyWith(
-                                            fontSize: 24,
-                                            color: AppColor.blackColor,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            )),
+                      Text(
+                        "${state.weatherResponse.main.tempMax.toString()}°C",
+                        style: AppFonts.textRegular16(context).copyWith(
+                            fontSize: 32,
+                            color: AppColor.blackColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const Gap(5),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          const BorderRadius.all(Radius.circular(16)),
+                                      border:
+                                          Border.all(color: AppColor.borderColor)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0, vertical: 16),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Cloud Coverage",
+                                          style: AppFonts.textRegular16(context)
+                                              .copyWith(
+                                                  fontSize: 16,
+                                                  color: AppColor.blackColor,
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                        const Gap(15),
+                                        Text(
+                                          "${state.weatherResponse.clouds.all}%",
+                                          style: AppFonts.textRegular16(context)
+                                              .copyWith(
+                                                  fontSize: 24,
+                                                  color: AppColor.blackColor,
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                            const Gap(10),
+                            Expanded(
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          const BorderRadius.all(Radius.circular(16)),
+                                      border:
+                                          Border.all(color: AppColor.borderColor)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0, vertical: 16),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Humidity",
+                                          style: AppFonts.textRegular16(context)
+                                              .copyWith(
+                                                  fontSize: 16,
+                                                  color: AppColor.blackColor,
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                        const Gap(15),
+                                        Text(
+                                          "${state.weatherResponse.main.humidity}%",
+                                          style: AppFonts.textRegular16(context)
+                                              .copyWith(
+                                                  fontSize: 24,
+                                                  color: AppColor.blackColor,
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          const BorderRadius.all(Radius.circular(16)),
+                                      border:
+                                          Border.all(color: AppColor.borderColor)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0, vertical: 16),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Wind Speed",
+                                          style: AppFonts.textRegular16(context)
+                                              .copyWith(
+                                                  fontSize: 16,
+                                                  color: AppColor.blackColor,
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                        const Gap(15),
+                                        Text(
+                                          "${state.weatherResponse.wind.speed} km/h",
+                                          style: AppFonts.textRegular16(context)
+                                              .copyWith(
+                                                  fontSize: 24,
+                                                  color: AppColor.blackColor,
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Gap(30),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: CustomButton(
+                            onTap: () async {
+                              var result = await GoRouter.of(context).push(
+                                  AppRoute.flutterMapScreen,
+                                  extra: LatLng(context.read<WeatherCubit>().lat,
+                                      context.read<WeatherCubit>().lon));
+                              if (result != null &&
+                                  result is List &&
+                                  result.length == 2) {
+                                final lat = result[0] as double;
+                                final lon = result[1] as double;
+                                context.read<WeatherCubit>().getWeather(lat, lon);
+                              }
+                            },
+                            colorOfButton: AppColor.blackColor,
+                            text: AppString.selectLocation,
+                            color: AppColor.colorButtonNew),
                       ),
                     ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(16)),
-                                border:
-                                    Border.all(color: AppColor.borderColor)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Wind Speed",
-                                    style: AppFonts.textRegular16(context)
-                                        .copyWith(
-                                            fontSize: 16,
-                                            color: AppColor.blackColor,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                  const Gap(15),
-                                  Text(
-                                    "${state.weatherResponse.wind.speed} km/h",
-                                    style: AppFonts.textRegular16(context)
-                                        .copyWith(
-                                            fontSize: 24,
-                                            color: AppColor.blackColor,
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-                const Gap(30),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: CustomButton(
-                      onTap: () async {
-                        var result = await GoRouter.of(context).push(
-                            AppRoute.flutterMapScreen,
-                            extra: LatLng(context.read<WeatherCubit>().lat,
-                                context.read<WeatherCubit>().lon));
-                        if (result != null &&
-                            result is List &&
-                            result.length == 2) {
-                          final lat = result[0] as double;
-                          final lon = result[1] as double;
-                          context.read<WeatherCubit>().getWeather(lat, lon);
-                        }
-                      },
-                      colorOfButton: AppColor.blackColor,
-                      text: AppString.selectLocation,
-                      color: AppColor.colorButtonNew),
                 )
               ],
             ),
@@ -224,18 +234,18 @@ class _HomePageState extends State<HomePage> {
             ],
           );
         } else if (state is WeatherLoading) {
-          return const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(width: double.infinity,),
-              SizedBox(
-                width: 30,
-                height: 30,
-                child: CircularProgressIndicator(
-                  color: AppColor.primaryColor,
-                ),
+          return Expanded(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  LoadingAnimationWidget.fourRotatingDots(
+                    color: AppColor.primaryColor,
+                    size: 50,
+                  ),
+                ],
               ),
-            ],
+            ),
           );
         }
         return const SizedBox();
