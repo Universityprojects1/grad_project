@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:final_proj/config/routes/routes.dart';
+import 'package:final_proj/core/utils/app_color.dart';
 import 'package:final_proj/core/utils/fonts.dart';
 import 'package:final_proj/feature/detection/presentation/manager/detection_stream/detection_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../../core/utils/image_picker.dart';
 import '../../data_source/model/detection_model.dart';
@@ -59,39 +62,43 @@ class _DetectionScreenState extends State<DetectionScreen> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.network(
-                          state.detectionModel.image ?? "",
-                          width: double.infinity,
-                          height: 300,
-                          fit: BoxFit.fitWidth,
-                        ),
-                        const SizedBox(height: 20),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                state.detectionModel.label ?? "none",
-                                style: AppFonts.textBold20(context).copyWith(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                "Select an image to detect plant diseases",
-                                style: AppFonts.textSemiBold16(context).copyWith(
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
+                    child: FadeInUp(
+                      curve: Curves.linearToEaseOut,
+                       duration: const Duration(milliseconds: 900),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.network(
+                            state.detectionModel.image ?? "",
+                            width: double.infinity,
+                            height: 300,
+                            fit: BoxFit.fitWidth,
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 20),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  state.detectionModel.label ?? "none",
+                                  style: AppFonts.textBold20(context).copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  "Select an image to detect plant diseases",
+                                  style: AppFonts.textSemiBold16(context).copyWith(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const Spacer(),
@@ -126,7 +133,19 @@ class _DetectionScreenState extends State<DetectionScreen> {
                 ),
               );
             } else if (state is DetectionStreamLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return Expanded(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  LoadingAnimationWidget.fourRotatingDots(
+                    color: AppColor.primaryColor,
+                    size: 50,
+                  ),
+                ],
+              ),
+            ),
+          );
             }
             return SizedBox(
               child: Center(
