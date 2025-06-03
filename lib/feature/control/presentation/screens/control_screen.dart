@@ -116,9 +116,10 @@ class _PumpControlScreenState extends State<PumpControlScreen> {
                           focusNodeMinutes: focusNodeMinutesFertilizer,
                           focusNodeHours: focusNodeHoursFertilizer,
                           title: titleFertilizer,
-                          isOn: state.isFertilizerOn,
+                          isOn: context.read<PumpControlCubit>().isFertilizerOn,
                           onSwitchChanged: (bool value) {
                             final cubit = context.read<PumpControlCubit>();
+                            context.read<PumpControlCubit>().isFertilizerOn = value;
                             cubit.controlFertilizerPump(
                               isOn: value,
                               hours: int.tryParse(controllerHoursFertilizer.text) ?? 0,
@@ -136,9 +137,10 @@ class _PumpControlScreenState extends State<PumpControlScreen> {
                           focusNodeMinutes: focusNodeMinutesPesticide,
                           focusNodeHours: focusNodeHoursPesticide,
                           title: titlePesticide,
-                          isOn: state.isPesticideOn,
+                          isOn: context.read<PumpControlCubit>().isPesticideOn,
                           onSwitchChanged: (bool value) {
                             final cubit = context.read<PumpControlCubit>();
+                            context.read<PumpControlCubit>().isPesticideOn = value;
                             cubit.controlPesticidePump(
                               isOn: value,
                               hours: int.tryParse(controllerHoursPesticide.text) ?? 0,

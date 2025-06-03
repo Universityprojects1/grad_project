@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_proj/core/utils/app_color.dart';
 import 'package:final_proj/core/utils/component/custom_button.dart';
 import 'package:final_proj/feature/control/presentation/cubit_motors/motors_cubit.dart';
@@ -6,18 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-import '../../data/service/directions_service.dart';
 import 'control_screen.dart';
 
 class DirecationcontrolScreen extends StatefulWidget {
   const DirecationcontrolScreen({super.key});
 
   @override
-  State<DirecationcontrolScreen> createState() => _DirecationcontrolScreenState();
+  State<DirecationcontrolScreen> createState() =>
+      _DirecationcontrolScreenState();
 }
 
 class _DirecationcontrolScreenState extends State<DirecationcontrolScreen> {
-  late int count = 1200 ;
+  late int count = 300;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +39,12 @@ class _DirecationcontrolScreenState extends State<DirecationcontrolScreen> {
                       const Gap(5),
                       CustomButton(
                         onTap: () async {
-                         await context.read<MotorsCubit>().controlMotor2("front");
-                          count -= 300 ;
+                          if (count <= 600) {
+                            await context
+                                .read<MotorsCubit>()
+                                .controlMotor2("back");
+                            count += 300;
+                          }
                         },
                         text: "Front",
                         color: AppColor.colorButtonNew,
@@ -53,11 +56,12 @@ class _DirecationcontrolScreenState extends State<DirecationcontrolScreen> {
                       ),
                       CustomButton(
                         onTap: () async {
-                          if (count < 1800){
-                            await context.read<MotorsCubit>().controlMotor2("back");
-                            count += 300 ;
+                          if (count >= 300) {
+                            await context
+                                .read<MotorsCubit>()
+                                .controlMotor2("front");
+                            count -= 300;
                           }
-
                         },
                         text: "Back",
                         color: AppColor.colorButtonNew,

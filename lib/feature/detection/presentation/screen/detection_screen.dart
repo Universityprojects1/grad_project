@@ -64,7 +64,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
                   SingleChildScrollView(
                     child: FadeInUp(
                       curve: Curves.linearToEaseOut,
-                       duration: const Duration(milliseconds: 900),
+                      duration: const Duration(milliseconds: 900),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -81,7 +81,7 @@ class _DetectionScreenState extends State<DetectionScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  state.detectionModel.label ?? "none",
+                                  "Plant Detection",
                                   style: AppFonts.textBold20(context).copyWith(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -89,8 +89,9 @@ class _DetectionScreenState extends State<DetectionScreen> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  "Select an image to detect plant diseases",
-                                  style: AppFonts.textSemiBold16(context).copyWith(
+                                  state.detectionModel.label ?? "none",
+                                  style:
+                                      AppFonts.textSemiBold16(context).copyWith(
                                     color: Colors.black,
                                   ),
                                 ),
@@ -111,7 +112,9 @@ class _DetectionScreenState extends State<DetectionScreen> {
                           await _selectImage().then(
                             (value) {
                               if (_selectedImage != null) {
-                                context.read<DetectionCameraCubit>().postDetection(
+                                context
+                                    .read<DetectionCameraCubit>()
+                                    .postDetection(
                                       DetectionModel(
                                           imageFile: _selectedImage!),
                                     );
@@ -134,18 +137,18 @@ class _DetectionScreenState extends State<DetectionScreen> {
               );
             } else if (state is DetectionStreamLoading) {
               return Expanded(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  LoadingAnimationWidget.fourRotatingDots(
-                    color: AppColor.primaryColor,
-                    size: 50,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LoadingAnimationWidget.fourRotatingDots(
+                        color: AppColor.primaryColor,
+                        size: 50,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-          );
+                ),
+              );
             }
             return SizedBox(
               child: Center(

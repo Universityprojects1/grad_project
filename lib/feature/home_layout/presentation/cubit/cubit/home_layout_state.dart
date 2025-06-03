@@ -54,7 +54,7 @@ final class HomeLayoutHealthState extends HomeLayoutState {
 
             // Replace with your WebSocket port
             ),
-      )..connect("4.3.2.24", 8765),
+      )..connect(EndPoints.ip, 8765),
       child: HealthScreen(),
     );
   }

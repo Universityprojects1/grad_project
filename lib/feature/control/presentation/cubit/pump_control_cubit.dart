@@ -6,12 +6,11 @@ part 'pump_control_state.dart';
 
 class PumpControlCubit extends Cubit<PumpControlState> {
   final PumpControlService _pumpService;
-  late  bool isIrrigationOn = false;
-  final bool isFertilizerOn = false;
-  final bool isPesticideOn = false;
+  late bool isIrrigationOn = false;
+  late bool isFertilizerOn = false;
+  late bool isPesticideOn = false;
 
-
-  PumpControlCubit({PumpControlService? pumpService}) 
+  PumpControlCubit({PumpControlService? pumpService})
       : _pumpService = pumpService ?? PumpControlService(),
         super(const PumpControlState());
 
@@ -23,7 +22,7 @@ class PumpControlCubit extends Cubit<PumpControlState> {
     required int seconds,
   }) async {
     emit(state.copyWith(isLoading: true, errorMessage: null));
-    
+
     try {
       final success = await _pumpService.controlPump(
         pumpType: 'irrigation',
@@ -32,18 +31,10 @@ class PumpControlCubit extends Cubit<PumpControlState> {
         minutes: minutes,
         seconds: seconds,
       );
-      
-      if (success) {
-        isIrrigationOn = success ;
-        emit(state.copyWith(
-          isLoading: false,
-        ));
-      } else {
-        emit(state.copyWith(
-          isLoading: false,
-          errorMessage: 'Failed to control irrigation pump',
-        ));
-      }
+      isIrrigationOn = success;
+      emit (state.copyWith(
+        isLoading: false,
+      ));
     } catch (e) {
       emit(state.copyWith(
         isLoading: false,
@@ -60,7 +51,7 @@ class PumpControlCubit extends Cubit<PumpControlState> {
     required int seconds,
   }) async {
     emit(state.copyWith(isLoading: true, errorMessage: null));
-    
+
     try {
       final success = await _pumpService.controlPump(
         pumpType: 'fertilizer',
@@ -69,18 +60,10 @@ class PumpControlCubit extends Cubit<PumpControlState> {
         minutes: minutes,
         seconds: seconds,
       );
-      
-      if (success) {
-        emit(state.copyWith(
-          isFertilizerOn: isOn,
-          isLoading: false,
-        ));
-      } else {
-        emit(state.copyWith(
-          isLoading: false,
-          errorMessage: 'Failed to control fertilizer pump',
-        ));
-      }
+      isFertilizerOn = success ;
+      emit(state.copyWith(
+        isLoading: false,
+      ));
     } catch (e) {
       emit(state.copyWith(
         isLoading: false,
@@ -97,7 +80,7 @@ class PumpControlCubit extends Cubit<PumpControlState> {
     required int seconds,
   }) async {
     emit(state.copyWith(isLoading: true, errorMessage: null));
-    
+
     try {
       final success = await _pumpService.controlPump(
         pumpType: 'pesticide',
@@ -106,18 +89,10 @@ class PumpControlCubit extends Cubit<PumpControlState> {
         minutes: minutes,
         seconds: seconds,
       );
-      
-      if (success) {
-        emit(state.copyWith(
-          isPesticideOn: isOn,
-          isLoading: false,
-        ));
-      } else {
-        emit(state.copyWith(
-          isLoading: false,
-          errorMessage: 'Failed to control pesticide pump',
-        ));
-      }
+      isPesticideOn = success ;
+      emit(state.copyWith(
+        isLoading: false,
+      ));
     } catch (e) {
       emit(state.copyWith(
         isLoading: false,
@@ -142,7 +117,7 @@ class PumpControlCubit extends Cubit<PumpControlState> {
     required int pesticideSeconds,
   }) async {
     emit(state.copyWith(isLoading: true, errorMessage: null));
-    
+
     try {
       // Process all three pumps in parallel
       final results = await Future.wait([
@@ -168,9 +143,9 @@ class PumpControlCubit extends Cubit<PumpControlState> {
           seconds: pesticideSeconds,
         ),
       ]);
-      
+
       final allSucceeded = results.every((result) => result);
-      
+
       if (allSucceeded) {
         emit(state.copyWith(
           isIrrigationOn: isIrrigationOn,
